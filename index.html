@@ -3,36 +3,79 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="theme-color" content="#0a0a0a" />
+<meta name="theme-color" content="#181613" />
+<meta name="color-scheme" content="dark" />
 <title>Track — Goals, Habits & Journal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --bg: #fafaf9;
-    --surface: #ffffff;
-    --surface-2: #f5f5f4;
-    --border: #e7e5e4;
-    --text: #1c1917;
-    --text-muted: #78716c;
-    --text-soft: #a8a29e;
-    --accent: #1c1917;
-    --accent-soft: #292524;
-    --success: #16a34a;
-    --danger: #dc2626;
-    --radius: 14px;
-    --radius-sm: 10px;
-    --shadow: 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
+    /* Surfaces — warm-tinted deep slate, layered by luminance */
+    --bg:          oklch(0.135 0.005 60);
+    --surface:     oklch(0.175 0.007 60);
+    --surface-2:   oklch(0.215 0.008 60);
+    --surface-3:   oklch(0.255 0.010 60);
+
+    /* Borders */
+    --border:        oklch(0.27 0.011 60);
+    --border-strong: oklch(0.40 0.013 60);
+
+    /* Text — warm off-whites */
+    --text:       oklch(0.97 0.012 85);
+    --text-muted: oklch(0.74 0.014 80);
+    --text-soft:  oklch(0.55 0.014 80);
+    --text-faint: oklch(0.38 0.012 80);
+
+    /* Accent — single saffron tone, ≤10% surface usage */
+    --accent:       oklch(0.84 0.155 75);
+    --accent-hover: oklch(0.88 0.155 75);
+    --accent-soft:  oklch(0.32 0.07 75);
+    --accent-edge:  oklch(0.55 0.11 75);
+
+    /* States */
+    --danger:      oklch(0.70 0.18 28);
+    --danger-soft: oklch(0.30 0.08 28);
+
+    /* Heatmap ramp */
+    --hm-0: oklch(0.215 0.008 60);
+    --hm-1: oklch(0.35 0.045 70);
+    --hm-2: oklch(0.50 0.085 72);
+    --hm-3: oklch(0.68 0.13 74);
+    --hm-4: oklch(0.84 0.155 75);
+
+    /* Geometry */
+    --radius-xs: 6px;
+    --radius-sm: 9px;
+    --radius:    14px;
+    --radius-lg: 22px;
+    --tap-min:   44px;
+
+    /* Motion */
+    --ease:        cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --t-fast: 140ms;
+    --t-med:  220ms;
+    --t-slow: 360ms;
+
+    /* Type */
+    --font-ui:      'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
   }
+
   html, body {
     height: 100%;
     background: var(--bg);
     color: var(--text);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.5;
+    font-feature-settings: 'ss01', 'cv11', 'cv02';
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     overscroll-behavior: none;
   }
   body {
@@ -42,11 +85,39 @@
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    background: var(--bg);
     position: relative;
+    background:
+      radial-gradient(110% 70% at 50% -8%, oklch(0.84 0.155 75 / 0.10), transparent 55%),
+      radial-gradient(80% 50% at 100% 100%, oklch(0.84 0.155 75 / 0.04), transparent 60%),
+      var(--bg);
   }
 
-  /* Loading */
+  ::selection { background: var(--accent-soft); color: var(--text); }
+  ::-webkit-scrollbar { width: 0; height: 0; }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  button:focus { outline: none; }
+  button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* Typography utilities */
+  .serif        { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+  .serif-italic { font-family: var(--font-display); font-style: italic; font-weight: 500; letter-spacing: -0.015em; }
+  .micro {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 500;
+    color: var(--text-soft);
+  }
+
+  /* ------------------ Loading ------------------ */
   #loadingScreen {
     position: fixed;
     inset: 0;
@@ -57,18 +128,20 @@
     justify-content: center;
   }
   .loading-logo {
-    font-size: 28px;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 38px;
     letter-spacing: -0.03em;
     color: var(--text);
-    animation: pulse 1.4s ease-in-out infinite;
+    animation: pulse 2s ease-in-out infinite;
   }
   @keyframes pulse {
-    0%, 100% { opacity: 0.25; }
-    50% { opacity: 0.9; }
+    0%, 100% { opacity: 0.32; }
+    50%      { opacity: 0.95; }
   }
 
-  /* Auth Screen */
+  /* ------------------ Auth ------------------ */
   #authScreen {
     position: fixed;
     inset: 0;
@@ -77,263 +150,947 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 32px 24px;
   }
-  .auth-container { width: 100%; max-width: 380px; }
-  .auth-logo { font-size: 34px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 4px; }
-  .auth-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 36px; }
+  #authScreen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60% 50% at 50% 20%, oklch(0.84 0.155 75 / 0.12), transparent 65%);
+    pointer-events: none;
+  }
+  .auth-container {
+    width: 100%;
+    max-width: 360px;
+    position: relative;
+  }
+  .auth-logo {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 56px;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .auth-subtitle {
+    font-size: 13px;
+    color: var(--text-soft);
+    margin-bottom: 44px;
+    letter-spacing: 0.005em;
+  }
   .auth-error {
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    color: var(--danger);
-    padding: 10px 14px;
+    background: var(--danger-soft);
+    color: oklch(0.92 0.06 28);
+    padding: 11px 14px;
     border-radius: var(--radius-sm);
     font-size: 13px;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
+    border: 1px solid oklch(0.50 0.14 28 / 0.4);
   }
   .auth-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    margin-top: 12px;
-    font-size: 14px;
-    color: var(--text-muted);
+    margin-top: 22px;
+    font-size: 13.5px;
+    color: var(--text-soft);
   }
   .auth-toggle-btn {
     background: none;
     border: none;
     color: var(--text);
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13.5px;
     cursor: pointer;
     font-family: inherit;
-    padding: 4px;
-    text-decoration: underline;
+    padding: 4px 2px;
+    border-bottom: 1px solid var(--border-strong);
+    transition: border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
   }
+  .auth-toggle-btn:hover { color: var(--accent); border-color: var(--accent-edge); }
 
-  /* Header */
+  /* ------------------ Header ------------------ */
   .app-header {
-    padding: 20px 20px 12px;
-    background: var(--bg);
+    padding: 28px 22px 14px;
+    background: transparent;
     position: sticky;
     top: 0;
     z-index: 10;
-    border-bottom: 1px solid transparent;
-    transition: border-color .2s;
+    transition: background var(--t-med) var(--ease), border-color var(--t-med) var(--ease);
   }
-  .app-header.scrolled { border-color: var(--border); }
-  .greeting { font-size: 13px; color: var(--text-muted); font-weight: 500; }
-  .header-row { display: flex; align-items: center; justify-content: space-between; }
-  .header-title { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; margin-top: 2px; }
-  .date-line { font-size: 13px; color: var(--text-soft); margin-top: 4px; text-transform: capitalize; }
+  .app-header::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 1px;
+    background: var(--border);
+    opacity: 0;
+    transition: opacity var(--t-med) var(--ease);
+  }
+  .app-header.scrolled {
+    background: color-mix(in oklab, var(--bg) 78%, transparent);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+  .app-header.scrolled::after { opacity: 1; }
+
+  .greeting {
+    font-size: 12px;
+    color: var(--text-soft);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .header-row { display: flex; align-items: baseline; justify-content: space-between; margin-top: 6px; }
+  .header-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 34px;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--text);
+  }
+  .date-line {
+    font-size: 12.5px;
+    color: var(--text-soft);
+    margin-top: 10px;
+    text-transform: lowercase;
+    letter-spacing: 0.005em;
+  }
   .signout-btn {
     background: none;
     border: none;
     color: var(--text-soft);
     cursor: pointer;
-    padding: 6px;
-    border-radius: 8px;
+    padding: 8px;
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
-    margin-top: 2px;
+    align-self: center;
+    transition: color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
   }
-  .signout-btn:hover { background: var(--surface-2); }
+  .signout-btn:hover { background: var(--surface-2); color: var(--text); }
 
-  /* Main */
+  /* ------------------ Main ------------------ */
   main {
     flex: 1;
-    padding: 16px 20px 100px;
+    padding: 14px 22px 120px;
     overflow-y: auto;
   }
 
   /* Views */
   .view { display: none; }
-  .view.active { display: block; animation: fade .25s ease; }
+  .view.active { display: block; animation: fade var(--t-med) var(--ease); }
   @keyframes fade {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* Today grid (single col mobile, 2 col desktop) */
-  .today-grid { display: block; }
-  .today-grid-goals { margin-top: 22px; }
-
-  /* Section */
+  /* Section heads */
   .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 28px 2px 14px;
+  }
+  .section-head:first-child { margin-top: 8px; }
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+  .section-sub {
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.04em;
+  }
+
+  /* ------------------ Stats (today) ------------------ */
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin-top: 4px;
+    margin-bottom: 6px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .stat {
+    background: var(--bg);
+    padding: 18px 18px 16px;
+    position: relative;
+  }
+  .stat-label {
+    font-size: 10.5px;
+    color: var(--text-soft);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1;
+    margin-top: 10px;
+    letter-spacing: -0.035em;
+    color: var(--text);
+    font-feature-settings: 'tnum', 'lnum';
+  }
+  .stat-meta {
+    font-size: 11.5px;
+    color: var(--text-soft);
+    margin-top: 8px;
+    letter-spacing: 0.005em;
+  }
+
+  /* ------------------ Habit row ------------------ */
+  .habit-list { display: flex; flex-direction: column; }
+  .habit {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 4px;
+    border-top: 1px solid var(--border);
+    position: relative;
+    min-height: var(--tap-min);
+    transition: background var(--t-fast) var(--ease);
+  }
+  .habit:last-child { border-bottom: 1px solid var(--border); }
+  .habit:hover .habit-delete { opacity: 1; }
+
+  .habit-check {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-strong);
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    transition: border-color var(--t-fast) var(--ease),
+                background var(--t-med) var(--ease),
+                transform var(--t-med) var(--ease);
+  }
+  .habit-check:hover { border-color: var(--accent-edge); }
+  .habit-check.done {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  .habit-check.done::after {
+    content: '';
+    width: 11px; height: 6px;
+    border-left: 1.75px solid var(--bg);
+    border-bottom: 1.75px solid var(--bg);
+    transform: rotate(-45deg) translate(1px, -1px);
+    animation: check-in var(--t-med) var(--ease);
+  }
+  @keyframes check-in {
+    from { opacity: 0; transform: rotate(-45deg) translate(1px, -1px) scale(0.4); }
+    to   { opacity: 1; transform: rotate(-45deg) translate(1px, -1px) scale(1); }
+  }
+
+  .habit-body { flex: 1; min-width: 0; }
+  .habit-name {
+    font-size: 15.5px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.005em;
+    transition: color var(--t-med) var(--ease);
+  }
+  .habit-check.done ~ .habit-body .habit-name { color: var(--text-muted); }
+
+  .habit-meta {
+    font-size: 11.5px;
+    color: var(--text-soft);
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.01em;
+  }
+  .streak {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+  .streak::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent-soft);
+  }
+  .streak.dim { color: var(--text-faint); }
+  .streak.dim::before { background: var(--text-faint); box-shadow: none; }
+
+  .habit-delete {
+    background: transparent;
+    border: none;
+    color: var(--text-faint);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: opacity var(--t-fast) var(--ease), color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+  }
+  .habit-delete:hover { color: var(--danger); background: var(--surface-2); opacity: 1; }
+
+  /* Week dots */
+  .week-dots { display: flex; gap: 4px; }
+  .week-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+  }
+  .week-dot.done {
+    background: var(--accent);
+    border-color: transparent;
+    box-shadow: 0 0 4px var(--accent-soft);
+  }
+
+  /* ------------------ Goal card ------------------ */
+  .goal {
+    padding: 18px 18px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background:
+      linear-gradient(180deg, oklch(0.84 0.155 75 / 0.012), transparent 80%),
+      var(--surface);
+    transition: border-color var(--t-fast) var(--ease), transform var(--t-med) var(--ease);
+  }
+  .goal + .goal { margin-top: 10px; }
+  .goal:hover { border-color: var(--border-strong); }
+
+  .goal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .goal-name {
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+    letter-spacing: -0.005em;
+    line-height: 1.35;
+  }
+  .goal-name.done { color: var(--text-faint); }
+  .goal-name.done::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 1px;
+    background: var(--text-faint);
+    vertical-align: middle;
+    margin-right: 6px;
+    margin-bottom: 3px;
+  }
+  .goal-actions { display: flex; gap: 2px; flex-shrink: 0; }
+  .icon-btn {
+    background: transparent;
+    border: none;
+    width: 32px; height: 32px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--text-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+  }
+  .icon-btn:hover { background: var(--surface-2); color: var(--text); }
+
+  .goal-deadline {
+    font-size: 11.5px;
+    color: var(--text-soft);
+    margin-top: 4px;
+    letter-spacing: 0.005em;
+  }
+  .goal-deadline.overdue { color: var(--danger); }
+
+  .progress-wrap {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .progress {
+    flex: 1;
+    height: 3px;
+    background: var(--surface-3);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width var(--t-slow) var(--ease);
+    box-shadow: 0 0 8px var(--accent-soft);
+  }
+  .progress-text {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+    min-width: 42px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+  }
+  .progress-controls {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .progress-controls button {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: 0.02em;
+    transition: border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+  }
+  .progress-controls button:hover { border-color: var(--accent-edge); color: var(--text); }
+  .progress-controls button:active { background: var(--surface-2); }
+
+  /* ------------------ Journal ------------------ */
+  .journal-entry {
+    padding: 18px 18px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    position: relative;
+  }
+  .journal-entry + .journal-entry { margin-top: 12px; }
+  .journal-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 4px 2px 12px;
+    margin-bottom: 12px;
+    gap: 12px;
   }
-  .section-title { font-size: 15px; font-weight: 600; color: var(--text); }
-  .section-sub { font-size: 12px; color: var(--text-soft); }
-
-  /* Cards */
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
-  .card + .card { margin-top: 10px; }
-
-  /* Stats grid */
-  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
-  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
-  .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
-  .stat-value { font-size: 24px; font-weight: 700; margin-top: 6px; letter-spacing: -0.02em; }
-  .stat-meta { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
-
-  /* Habit row */
-  .habit { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
-  .habit + .habit { margin-top: 8px; }
-  .habit-check {
-    width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--border);
-    flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: all .15s; background: var(--surface);
+  .journal-date {
+    font-size: 11px;
+    color: var(--text-soft);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
   }
-  .habit-check.done { background: var(--accent); border-color: var(--accent); animation: pop .3s ease; }
-  @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
-  .habit-check.done::after { content: ''; width: 12px; height: 6px; border-left: 2px solid white; border-bottom: 2px solid white; transform: rotate(-45deg) translate(1px,-1px); }
-  .habit-body { flex: 1; min-width: 0; }
-  .habit-name { font-size: 15px; font-weight: 500; color: var(--text); }
-  .habit-meta { font-size: 12px; color: var(--text-soft); margin-top: 2px; display: flex; align-items: center; gap: 8px; }
-  .streak { display: inline-flex; align-items: center; gap: 3px; color: #ea580c; font-weight: 500; }
-  .habit-delete { background: transparent; border: none; color: var(--text-soft); cursor: pointer; padding: 6px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-  .habit-delete:hover { background: var(--surface-2); color: var(--danger); }
+  .journal-mood {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .journal-text {
+    font-family: var(--font-display);
+    font-size: 16px;
+    line-height: 1.55;
+    font-weight: 400;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    letter-spacing: -0.005em;
+  }
+  .journal-foot {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
 
-  /* Goal */
-  .goal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
-  .goal + .goal { margin-top: 10px; }
-  .goal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-  .goal-name { font-size: 15px; font-weight: 600; color: var(--text); flex: 1; }
-  .goal-name.done { text-decoration: line-through; color: var(--text-soft); }
-  .goal-actions { display: flex; gap: 2px; }
-  .icon-btn { background: transparent; border: none; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; color: var(--text-soft); display: flex; align-items: center; justify-content: center; }
-  .icon-btn:hover { background: var(--surface-2); color: var(--text); }
-  .goal-deadline { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
-  .goal-deadline.overdue { color: var(--danger); }
-  .progress-wrap { margin-top: 12px; display: flex; align-items: center; gap: 10px; }
-  .progress { flex: 1; height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
-  .progress-bar { height: 100%; background: var(--accent); border-radius: 999px; transition: width .3s; }
-  .progress-text { font-size: 12px; color: var(--text-muted); font-weight: 500; min-width: 38px; text-align: right; }
-  .progress-controls { display: flex; gap: 6px; margin-top: 10px; }
-  .progress-controls button { flex: 1; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 13px; font-weight: 500; color: var(--text); cursor: pointer; font-family: inherit; }
-  .progress-controls button:active { background: var(--border); }
+  /* ------------------ Empty state ------------------ */
+  .empty {
+    text-align: center;
+    padding: 60px 20px 40px;
+    color: var(--text-soft);
+  }
+  .empty-icon {
+    width: 56px; height: 56px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-soft);
+    position: relative;
+  }
+  .empty-icon::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px dashed var(--border);
+    opacity: 0.6;
+  }
+  .empty-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 19px;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.015em;
+  }
+  .empty-sub {
+    font-size: 13px;
+    color: var(--text-soft);
+    line-height: 1.5;
+    max-width: 240px;
+    margin: 0 auto;
+  }
 
-  /* Journal */
-  .journal-entry { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
-  .journal-entry + .journal-entry { margin-top: 10px; }
-  .journal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-  .journal-date { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-  .journal-mood { font-size: 18px; }
-  .journal-text { font-size: 14px; line-height: 1.55; color: var(--text); white-space: pre-wrap; word-wrap: break-word; }
-
-  /* Empty state */
-  .empty { text-align: center; padding: 48px 20px; color: var(--text-soft); }
-  .empty-icon { width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 50%; background: var(--surface-2); display: flex; align-items: center; justify-content: center; }
-  .empty-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .empty-sub { font-size: 13px; color: var(--text-soft); }
-
-  /* FAB */
+  /* ------------------ FAB ------------------ */
   .fab {
     position: fixed;
-    bottom: 90px;
-    right: max(20px, calc(50% - 240px + 20px));
-    width: 56px; height: 56px; border-radius: 50%;
-    background: var(--accent); color: white; border: none;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    z-index: 50; transition: transform .15s;
+    bottom: 92px;
+    right: max(22px, calc(50% - 240px + 22px));
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    transition: transform var(--t-med) var(--ease), box-shadow var(--t-med) var(--ease);
     -webkit-tap-highlight-color: transparent;
+    box-shadow:
+      0 0 0 1px oklch(1 0 0 / 0.04) inset,
+      0 8px 28px oklch(0.84 0.155 75 / 0.28),
+      0 2px 6px oklch(0 0 0 / 0.4);
   }
-  .fab:active { transform: scale(0.92); }
+  .fab:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+  }
+  .fab:active { transform: scale(0.94); }
 
-  /* Tab bar */
+  /* ------------------ Tab bar ------------------ */
   .tabbar {
-    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 100%; max-width: 480px;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: color-mix(in oklab, var(--bg) 75%, transparent);
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
     border-top: 1px solid var(--border);
     display: flex;
-    padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+    padding: 6px 0 calc(6px + env(safe-area-inset-bottom));
     z-index: 30;
   }
   .tab {
-    flex: 1; background: transparent; border: none;
-    padding: 8px 0; display: flex; flex-direction: column;
-    align-items: center; gap: 3px; color: var(--text-soft);
-    cursor: pointer; font-family: inherit; font-size: 11px; font-weight: 500;
-    transition: color .15s;
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 9px 0 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-faint);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color var(--t-fast) var(--ease);
+    min-height: var(--tap-min);
   }
+  .tab svg { transition: transform var(--t-med) var(--ease); opacity: 0.9; }
+  .tab:hover { color: var(--text-muted); }
   .tab.active { color: var(--accent); }
-  .tab svg { transition: transform .15s; }
-  .tab.active svg { transform: scale(1.05); }
+  .tab.active svg { transform: translateY(-1px); }
+  .tab.active::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px; height: 2px;
+    background: var(--accent);
+    border-radius: 0 0 2px 2px;
+  }
 
   /* Sidebar extras — hidden on mobile */
   .sidebar-brand, .sidebar-new, .sidebar-spacer, .sidebar-bottom { display: none; }
 
-  /* Modal */
-  .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; display: none; align-items: flex-end; justify-content: center; animation: fade .2s; }
+  /* ------------------ Modal ------------------ */
+  .modal-bg {
+    position: fixed;
+    inset: 0;
+    background: oklch(0 0 0 / 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 100;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    animation: fade-bg var(--t-med) var(--ease);
+  }
   .modal-bg.show { display: flex; }
-  .modal { width: 100%; max-width: 480px; background: var(--surface); border-radius: 20px 20px 0 0; padding: 18px 20px calc(20px + env(safe-area-inset-bottom)); animation: slideUp .25s cubic-bezier(0.2, 0.9, 0.3, 1); max-height: 88vh; overflow-y: auto; }
-  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-  .modal-handle { width: 38px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 14px; }
-  .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.01em; }
-  .field { margin-bottom: 14px; }
-  .field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .field input, .field textarea, .field select { width: 100%; background: var(--surface-2); border: 1px solid transparent; border-radius: var(--radius-sm); padding: 12px 14px; font-size: 15px; color: var(--text); font-family: inherit; transition: all .15s; -webkit-appearance: none; appearance: none; }
-  .field input:focus, .field textarea:focus, .field select:focus { outline: none; background: var(--surface); border-color: var(--accent); }
-  .field input.invalid, .field textarea.invalid { border-color: var(--danger); background: #fef2f2; animation: shake .3s; }
-  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-  .field textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
-  .mood-picker { display: flex; gap: 8px; justify-content: space-between; }
-  .mood-option { flex: 1; aspect-ratio: 1; background: var(--surface-2); border: 1.5px solid transparent; border-radius: var(--radius-sm); font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; }
-  .mood-option.selected { border-color: var(--accent); background: var(--surface); transform: scale(1.05); }
-  .btn-primary { width: 100%; background: var(--accent); color: white; border: none; border-radius: var(--radius-sm); padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; margin-top: 6px; transition: opacity .15s; }
-  .btn-primary:active { opacity: 0.85; }
+  @keyframes fade-bg { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal {
+    width: 100%;
+    max-width: 480px;
+    background:
+      linear-gradient(180deg, oklch(0.84 0.155 75 / 0.02), transparent 30%),
+      var(--surface);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    padding: 14px 22px calc(24px + env(safe-area-inset-bottom));
+    animation: slideUp var(--t-slow) var(--ease);
+    max-height: 88vh;
+    overflow-y: auto;
+    border-top: 1px solid var(--border-strong);
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+  .modal-handle {
+    width: 36px; height: 4px;
+    background: var(--border-strong);
+    border-radius: 2px;
+    margin: 0 auto 18px;
+  }
+  .modal-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 22px;
+    letter-spacing: -0.025em;
+    color: var(--text);
+  }
+
+  /* Forms */
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--text-soft);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 13px 14px;
+    font-size: 15px;
+    color: var(--text);
+    font-family: inherit;
+    transition: border-color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+    -webkit-appearance: none;
+    appearance: none;
+    color-scheme: dark;
+  }
+  .field input::placeholder, .field textarea::placeholder { color: var(--text-faint); }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--bg);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .field input.invalid, .field textarea.invalid {
+    border-color: var(--danger);
+    background: var(--danger-soft);
+    animation: shake var(--t-slow) var(--ease-in-out);
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-4px); }
+    75%      { transform: translateX(4px); }
+  }
+  .field textarea {
+    min-height: 140px;
+    resize: vertical;
+    line-height: 1.5;
+    font-family: var(--font-display);
+    font-size: 16px;
+  }
+
+  /* Mood picker — typographic, no emojis */
+  .mood-picker {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .mood-option {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 4px 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: border-color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+    font-family: inherit;
+    color: var(--text-muted);
+    min-height: var(--tap-min);
+  }
+  .mood-option:hover { border-color: var(--border-strong); color: var(--text); }
+  .mood-glyph {
+    width: 22px;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--text-faint);
+    transition: background var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+    position: relative;
+  }
+  .mood-glyph.g1 { transform: translateY(-2px); }
+  .mood-glyph.g2 { transform: translateY(-1px); }
+  .mood-glyph.g4 { transform: translateY(1px); }
+  .mood-glyph.g5 { transform: translateY(2px); }
+  .mood-label {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .mood-option.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+  .mood-option.selected .mood-glyph { background: var(--accent); }
+
+  /* Buttons */
+  .btn-primary {
+    width: 100%;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 15px;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 8px;
+    letter-spacing: 0.005em;
+    transition: background var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+    min-height: var(--tap-min);
+  }
+  .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+  .btn-primary:active { transform: scale(0.99); }
   .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-  .btn-ghost { width: 100%; background: transparent; color: var(--text-muted); border: none; padding: 12px; font-size: 14px; cursor: pointer; font-family: inherit; margin-top: 4px; }
+  .btn-ghost {
+    width: 100%;
+    background: transparent;
+    color: var(--text-soft);
+    border: none;
+    padding: 14px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+    transition: color var(--t-fast) var(--ease);
+    min-height: var(--tap-min);
+  }
+  .btn-ghost:hover { color: var(--text); }
 
-  /* Toast */
-  .toast { position: fixed; bottom: 160px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 200; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+  /* ------------------ Toast ------------------ */
+  .toast {
+    position: fixed;
+    bottom: 170px;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: var(--surface-3);
+    color: var(--text);
+    padding: 11px 18px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 500;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    border: 1px solid var(--border-strong);
+    box-shadow:
+      0 8px 24px oklch(0 0 0 / 0.5),
+      0 1px 0 oklch(1 0 0 / 0.04) inset;
+    transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease);
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .toast::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 9px;
+    vertical-align: middle;
+    transform: translateY(-1px);
+    box-shadow: 0 0 6px var(--accent);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* Week dots */
-  .week-dots { display: flex; gap: 3px; }
-  .week-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--surface-2); }
-  .week-dot.done { background: var(--accent); }
-
-  /* Stats view */
+  /* ------------------ Stats view ------------------ */
   .stats.cols-3 { grid-template-columns: repeat(3, 1fr); }
-  .stats.cols-3 .stat { padding: 12px 10px; }
-  .stats.cols-3 .stat-value { font-size: 20px; }
-  .stats.cols-3 .stat-label { font-size: 10px; }
-  .stats.cols-3 .stat-meta { font-size: 10px; }
-  .heatmap-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow); }
-  .heatmap-labels { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 6px; font-size: 10px; color: var(--text-soft); text-align: center; font-weight: 600; letter-spacing: 0.04em; }
-  .heatmap-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-  .heatmap-cell { aspect-ratio: 1; border-radius: 5px; background: var(--surface-2); transition: transform .15s; }
-  .heatmap-cell.level-1 { background: #d6d3d1; }
-  .heatmap-cell.level-2 { background: #78716c; }
-  .heatmap-cell.level-3 { background: #44403c; }
-  .heatmap-cell.level-4 { background: #1c1917; }
+  .stats.cols-3 .stat-value { font-size: 28px; }
+
+  .heatmap-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px 18px;
+    background: var(--surface);
+  }
+  .heatmap-labels {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 8px;
+    font-size: 9.5px;
+    color: var(--text-faint);
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+  .heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+  .heatmap-cell {
+    aspect-ratio: 1;
+    border-radius: 4px;
+    background: var(--hm-0);
+    transition: transform var(--t-fast) var(--ease);
+    border: 1px solid transparent;
+  }
+  .heatmap-cell.level-1 { background: var(--hm-1); }
+  .heatmap-cell.level-2 { background: var(--hm-2); }
+  .heatmap-cell.level-3 { background: var(--hm-3); }
+  .heatmap-cell.level-4 { background: var(--hm-4); box-shadow: 0 0 6px oklch(0.84 0.155 75 / 0.25); }
   .heatmap-cell.empty { visibility: hidden; }
-  .heatmap-cell.today { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
-  .heatmap-legend { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 10px; color: var(--text-soft); justify-content: flex-end; }
+  .heatmap-cell.today { border-color: var(--text); }
+
+  .heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 9.5px;
+    color: var(--text-faint);
+    justify-content: flex-end;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
   .legend-cells { display: flex; gap: 3px; }
-  .legend-cell { width: 11px; height: 11px; border-radius: 3px; }
-  .stat-row { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+  .legend-cell { width: 10px; height: 10px; border-radius: 2px; }
+
+  .stat-row {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px 14px;
+    background: var(--surface);
+  }
   .stat-row + .stat-row { margin-top: 10px; }
-  .stat-row-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .stat-row-name { font-size: 15px; font-weight: 600; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .stat-row-name.done { text-decoration: line-through; color: var(--text-soft); }
-  .pct-badge { font-size: 12px; font-weight: 600; padding: 3px 9px; background: var(--surface-2); color: var(--text); border-radius: 999px; flex-shrink: 0; }
-  .pct-badge.full { background: var(--accent); color: white; }
-  .strip { display: grid; grid-template-columns: repeat(14, 1fr); gap: 3px; margin-bottom: 10px; }
-  .strip-cell { height: 22px; background: var(--surface-2); border-radius: 3px; }
-  .strip-cell.done { background: var(--accent); }
-  .strip-cell.today { box-shadow: inset 0 0 0 1.5px var(--accent); }
-  .stat-row-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-soft); }
-  .stat-row-meta .streak { color: #ea580c; font-weight: 500; }
+  .stat-row-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .stat-row-name {
+    font-size: 14.5px;
+    font-weight: 600;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    letter-spacing: -0.005em;
+  }
+  .stat-row-name.done { color: var(--text-faint); }
+  .pct-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    background: var(--bg);
+    color: var(--text-muted);
+    border-radius: 999px;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+  }
+  .pct-badge.full {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--accent-edge);
+  }
+  .strip {
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    gap: 3px;
+    margin-bottom: 12px;
+  }
+  .strip-cell {
+    height: 22px;
+    background: var(--surface-3);
+    border-radius: 3px;
+  }
+  .strip-cell.done { background: var(--accent); box-shadow: 0 0 4px var(--accent-soft); }
+  .strip-cell.today {
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+  }
+  .stat-row-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: var(--text-soft);
+    letter-spacing: 0.01em;
+  }
+  .stat-row-meta .streak { color: var(--text-muted); }
+
+  /* Today grid */
+  .today-grid { display: block; }
+  .today-grid-goals { margin-top: 0; }
 
   /* ===================== DESKTOP ===================== */
   @media (min-width: 768px) {
@@ -343,23 +1100,25 @@
       height: 100vh;
       height: 100dvh;
       overflow: hidden;
+      background:
+        radial-gradient(60% 50% at 0% 0%, oklch(0.84 0.155 75 / 0.05), transparent 60%),
+        var(--bg);
     }
 
-    /* Sidebar */
     .tabbar {
       position: static;
       transform: none;
-      width: 220px;
+      width: 240px;
       height: 100%;
       flex-direction: column;
       align-items: stretch;
       justify-content: flex-start;
       border-top: none;
       border-right: 1px solid var(--border);
-      padding: 16px 10px;
-      background: var(--surface);
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
+      padding: 22px 14px;
+      background: oklch(0.155 0.005 60 / 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       gap: 2px;
       flex-shrink: 0;
       overflow-y: auto;
@@ -367,45 +1126,58 @@
 
     .sidebar-brand {
       display: block;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      padding: 6px 12px 18px;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 500;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+      padding: 4px 14px 22px;
       color: var(--text);
     }
 
     .tab {
       flex-direction: row;
       justify-content: flex-start;
-      padding: 9px 12px;
-      border-radius: 9px;
-      gap: 10px;
-      font-size: 14px;
+      padding: 11px 14px;
+      border-radius: var(--radius-sm);
+      gap: 12px;
+      font-size: 13.5px;
       font-weight: 500;
+      letter-spacing: 0.005em;
+      text-transform: none;
       width: 100%;
       flex: none;
+      min-height: 0;
     }
-    .tab.active { background: var(--surface-2); color: var(--text); }
-    .tab svg { transform: none !important; }
-    .tab.active svg { transform: none !important; }
+    .tab svg { transform: none !important; opacity: 0.7; }
+    .tab.active {
+      background: var(--surface-2);
+      color: var(--text);
+    }
+    .tab.active svg { transform: none !important; opacity: 1; color: var(--accent); }
+    .tab.active::before { display: none; }
+    .tab::before { display: none; }
 
     .sidebar-new {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 10px;
       width: 100%;
       background: var(--accent);
-      color: white;
+      color: var(--bg);
       border: none;
-      border-radius: 9px;
-      padding: 9px 12px;
-      font-size: 14px;
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 13.5px;
       font-weight: 600;
       cursor: pointer;
       font-family: inherit;
-      margin-top: 8px;
+      margin-top: 14px;
+      letter-spacing: 0.005em;
+      transition: background var(--t-fast) var(--ease);
     }
-    .sidebar-new:hover { opacity: 0.88; }
+    .sidebar-new:hover { background: var(--accent-hover); }
 
     .sidebar-spacer { display: block; flex: 1; }
 
@@ -413,36 +1185,37 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
-      padding-top: 12px;
+      padding-top: 14px;
       border-top: 1px solid var(--border);
     }
     .sidebar-email {
       font-size: 11px;
-      color: var(--text-soft);
-      padding: 2px 12px 8px;
+      color: var(--text-faint);
+      padding: 4px 14px 10px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      letter-spacing: 0.01em;
     }
     .sidebar-signout-btn {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
       width: 100%;
       background: transparent;
       border: none;
-      border-radius: 9px;
-      padding: 9px 12px;
-      font-size: 14px;
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      font-size: 13.5px;
       font-weight: 500;
-      color: var(--text-muted);
+      color: var(--text-soft);
       cursor: pointer;
       font-family: inherit;
       text-align: left;
+      transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
     }
     .sidebar-signout-btn:hover { background: var(--surface-2); color: var(--text); }
 
-    /* App content */
     #appContent {
       flex: 1;
       display: flex;
@@ -453,52 +1226,57 @@
     }
 
     .app-header {
-      padding: 28px 40px 16px;
+      padding: 36px 48px 18px;
       position: static;
-      border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
-    .app-header.scrolled { border-color: var(--border); }
-    .header-title { font-size: 22px; }
+    .app-header::after { display: none; }
+    .header-title { font-size: 30px; }
     .signout-btn { display: none; }
 
     main {
       flex: 1;
-      padding: 24px 40px 40px;
+      padding: 8px 48px 56px;
       overflow-y: auto;
       max-width: none;
     }
 
     .fab { display: none !important; }
 
-    /* Today — 2 columns */
     .today-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 28px;
+      gap: 36px;
       align-items: start;
     }
     .today-grid-goals { margin-top: 0; }
 
-    /* Stats */
     .stats { grid-template-columns: repeat(4, 1fr); }
     .stats.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
-    /* Modal: centered dialog */
     .modal-bg { align-items: center; }
     .modal {
-      border-radius: 16px;
+      border-radius: var(--radius-lg);
       margin: 0;
       max-width: 460px;
-      animation: scaleIn .2s ease;
+      animation: scaleIn var(--t-med) var(--ease);
+      border: 1px solid var(--border-strong);
     }
     @keyframes scaleIn {
-      from { opacity: 0; transform: scale(0.96); }
-      to { opacity: 1; transform: scale(1); }
+      from { opacity: 0; transform: scale(0.97) translateY(8px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    /* Toast: above bottom */
-    .toast { bottom: 40px; }
+    .toast { bottom: 36px; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 </style>
 </head>
@@ -513,7 +1291,7 @@
 <div id="authScreen" style="display:none;">
   <div class="auth-container">
     <div class="auth-logo">Track</div>
-    <div class="auth-subtitle">Goals, Habits & Journal</div>
+    <div class="auth-subtitle">Carnet d'objectifs, d'habitudes &amp; de journal.</div>
     <div id="authError" class="auth-error" style="display:none;"></div>
     <form id="authForm" novalidate>
       <div class="field">
@@ -538,28 +1316,28 @@
   <div class="sidebar-brand">Track</div>
 
   <button class="tab active" data-view="today">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2 7-7 7 7 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2 7-7 7 7 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
     <span>Today</span>
   </button>
   <button class="tab" data-view="habits">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
     <span>Habits</span>
   </button>
   <button class="tab" data-view="goals">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
     <span>Goals</span>
   </button>
   <button class="tab" data-view="journal">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
     <span>Journal</span>
   </button>
   <button class="tab" data-view="stats">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
     <span>Stats</span>
   </button>
 
   <button class="sidebar-new" id="sidebarNew">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
     Nouveau
   </button>
 
@@ -568,7 +1346,7 @@
   <div class="sidebar-bottom">
     <div class="sidebar-email" id="sidebarEmail"></div>
     <button class="sidebar-signout-btn" id="signOutBtnDesktop">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       Se déconnecter
     </button>
   </div>
@@ -581,7 +1359,7 @@
     <div class="header-row">
       <div class="header-title" id="viewTitle">Aujourd'hui</div>
       <button class="signout-btn" id="signOutBtn" title="Se déconnecter">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       </button>
     </div>
     <div class="date-line" id="dateLine"></div>
@@ -667,23 +1445,23 @@
         <div class="heatmap-legend">
           <span>moins</span>
           <div class="legend-cells">
-            <div class="legend-cell" style="background:var(--surface-2)"></div>
-            <div class="legend-cell" style="background:#d6d3d1"></div>
-            <div class="legend-cell" style="background:#78716c"></div>
-            <div class="legend-cell" style="background:#44403c"></div>
-            <div class="legend-cell" style="background:#1c1917"></div>
+            <div class="legend-cell" style="background:var(--hm-0)"></div>
+            <div class="legend-cell" style="background:var(--hm-1)"></div>
+            <div class="legend-cell" style="background:var(--hm-2)"></div>
+            <div class="legend-cell" style="background:var(--hm-3)"></div>
+            <div class="legend-cell" style="background:var(--hm-4)"></div>
           </div>
           <span>plus</span>
         </div>
       </div>
 
-      <div class="section-head" style="margin-top:22px;">
+      <div class="section-head">
         <div class="section-title">Détail par habit</div>
         <div class="section-sub">14 j.</div>
       </div>
       <div id="habitStatsList"></div>
 
-      <div class="section-head" style="margin-top:22px;">
+      <div class="section-head">
         <div class="section-title">Avancement des goals</div>
       </div>
       <div id="goalStatsList"></div>
@@ -692,7 +1470,7 @@
 </div>
 
 <button class="fab" id="fab" aria-label="Ajouter">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
 </button>
 
 <!-- Modal -->
@@ -874,7 +1652,22 @@ function toast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(toast._t);
-  toast._t = setTimeout(() => t.classList.remove('show'), 1500);
+  toast._t = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+/* ---------- Mood labels (no emojis in UI) ---------- */
+const MOOD_KEYS = ['bien','calme','neutre','tendu','bas'];
+const MOOD_LABELS = { bien: 'Bien', calme: 'Calme', neutre: 'Neutre', tendu: 'Tendu', bas: 'Bas' };
+// Legacy emoji → key migration
+const MOOD_LEGACY = { '😊': 'bien', '🙂': 'calme', '😐': 'neutre', '😕': 'tendu', '😢': 'bas' };
+function moodKey(stored) {
+  if (!stored) return null;
+  if (MOOD_LABELS[stored]) return stored;
+  return MOOD_LEGACY[stored] || null;
+}
+function moodLabel(stored) {
+  const k = moodKey(stored);
+  return k ? MOOD_LABELS[k] : '';
 }
 
 /* ---------- Habits logic ---------- */
@@ -962,19 +1755,21 @@ function renderToday() {
   const habits = state.habits;
   const done = habits.filter(isHabitDoneToday).length;
   $('#statHabits').textContent = `${done}/${habits.length}`;
-  $('#statHabitsMeta').textContent = habits.length === 0 ? 'aucune' : (done === habits.length ? 'tout fait !' : `${habits.length - done} restantes`);
+  $('#statHabitsMeta').textContent = habits.length === 0 ? 'aucune' : (done === habits.length ? 'tout fait' : `${habits.length - done} restantes`);
   const activeGoals = state.goals.filter(g => !g.done);
   $('#statGoals').textContent = activeGoals.length;
   $('#statGoalsMeta').textContent = state.goals.filter(g => g.done).length + ' complétés';
   $('#todayDate').textContent = formatShort(new Date());
-  $('#todayHabits').innerHTML = habits.length === 0 ? emptyHtml('Aucune habit', 'Touche + pour en créer une', 'habit') : habits.map(habitRow).join('');
+  $('#todayHabits').innerHTML = habits.length === 0
+    ? emptyHtml('Aucune habit', 'Touche + pour en créer une', 'habit')
+    : `<div class="habit-list">${habits.map(habitRow).join('')}</div>`;
   $('#todayGoals').innerHTML = activeGoals.length === 0 ? emptyHtml('Aucun goal actif', 'Touche + pour en créer un', 'goal') : activeGoals.slice(0, 3).map(goalCard).join('');
 }
 
 function renderHabits() {
   $('#habitsList').innerHTML = state.habits.length === 0
     ? emptyHtml('Aucune habit', 'Crée ta première habit pour commencer ton streak', 'habit')
-    : state.habits.map(habitRow).join('');
+    : `<div class="habit-list">${state.habits.map(habitRow).join('')}</div>`;
 }
 
 function renderGoals() {
@@ -983,7 +1778,7 @@ function renderGoals() {
   const done = state.goals.filter(g => g.done);
   let html = '';
   if (active.length) { html += `<div class="section-head"><div class="section-title">En cours</div><div class="section-sub">${active.length}</div></div>`; html += active.map(goalCard).join(''); }
-  if (done.length) { html += `<div class="section-head" style="margin-top:22px;"><div class="section-title">Complétés</div><div class="section-sub">${done.length}</div></div>`; html += done.map(goalCard).join(''); }
+  if (done.length) { html += `<div class="section-head"><div class="section-title">Complétés</div><div class="section-sub">${done.length}</div></div>`; html += done.map(goalCard).join(''); }
   $('#goalsList').innerHTML = html;
 }
 
@@ -1057,12 +1852,12 @@ function habitStatRow(h) {
   }
   const pct = Math.round((done / 14) * 100);
   const streak = habitStreak(h);
-  return `<div class="stat-row"><div class="stat-row-head"><div class="stat-row-name">${escape(h.name)}</div><div class="pct-badge ${pct === 100 ? 'full' : ''}">${pct}%</div></div><div class="strip">${cells.join('')}</div><div class="stat-row-meta"><span>${done}/14 jours</span>${streak > 0 ? `<span class="streak">🔥 ${streak}</span>` : '<span></span>'}</div></div>`;
+  return `<div class="stat-row"><div class="stat-row-head"><div class="stat-row-name">${escape(h.name)}</div><div class="pct-badge ${pct === 100 ? 'full' : ''}">${pct}%</div></div><div class="strip">${cells.join('')}</div><div class="stat-row-meta"><span>${done}/14 jours</span>${streak > 0 ? `<span class="streak">${streak} j.</span>` : '<span></span>'}</div></div>`;
 }
 
 function goalStatRow(g) {
   const pct = g.target > 0 ? Math.round((g.progress / g.target) * 100) : 0;
-  const deadlineHtml = g.deadline ? (g.done ? '✓ complété' : relativeDate(g.deadline)) : (g.done ? '✓ complété' : '');
+  const deadlineHtml = g.deadline ? (g.done ? 'complété' : relativeDate(g.deadline)) : (g.done ? 'complété' : '');
   return `<div class="stat-row"><div class="stat-row-head"><div class="stat-row-name ${g.done ? 'done' : ''}">${escape(g.name)}</div><div class="pct-badge ${g.done ? 'full' : ''}">${pct}%</div></div><div class="progress" style="margin-bottom:10px;"><div class="progress-bar" style="width:${pct}%"></div></div><div class="stat-row-meta"><span>${g.progress}/${g.target}</span><span>${deadlineHtml}</span></div></div>`;
 }
 
@@ -1071,25 +1866,30 @@ function habitRow(h) {
   const done = isHabitDoneToday(h);
   const streak = habitStreak(h);
   const dots = habitWeekDots(h).map(c => `<div class="week-dot ${c}"></div>`).join('');
-  return `<div class="habit"><div class="habit-check ${done ? 'done' : ''}" onclick="toggleHabit('${h.id}')"></div><div class="habit-body"><div class="habit-name">${escape(h.name)}</div><div class="habit-meta">${streak > 0 ? `<span class="streak">🔥 ${streak}</span>` : '<span>—</span>'}<div class="week-dots">${dots}</div></div></div><button class="habit-delete" onclick="confirmDeleteHabit('${h.id}')" aria-label="Supprimer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg></button></div>`;
+  const streakHtml = streak > 0
+    ? `<span class="streak">${streak} j.</span>`
+    : `<span class="streak dim">—</span>`;
+  return `<div class="habit"><div class="habit-check ${done ? 'done' : ''}" onclick="toggleHabit('${h.id}')" role="checkbox" aria-checked="${done}" tabindex="0"></div><div class="habit-body"><div class="habit-name">${escape(h.name)}</div><div class="habit-meta">${streakHtml}<div class="week-dots">${dots}</div></div></div><button class="habit-delete" onclick="confirmDeleteHabit('${h.id}')" aria-label="Supprimer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg></button></div>`;
 }
 
 function goalCard(g) {
   const pct = g.target > 0 ? Math.round((g.progress / g.target) * 100) : 0;
-  const deadlineHtml = g.deadline ? `<div class="goal-deadline ${isOverdue(g) ? 'overdue' : ''}">${g.done ? '✓ complété' : relativeDate(g.deadline)}</div>` : (g.done ? '<div class="goal-deadline">✓ complété</div>' : '');
-  return `<div class="goal"><div class="goal-head"><div style="flex:1;"><div class="goal-name ${g.done ? 'done' : ''}">${escape(g.name)}</div>${deadlineHtml}</div><div class="goal-actions"><button class="icon-btn" onclick="toggleGoalDone('${g.id}')" aria-label="Toggle">${g.done ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9"/><polyline points="3 4 3 12 11 12"/></svg>` : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`}</button><button class="icon-btn" onclick="confirmDeleteGoal('${g.id}')" aria-label="Supprimer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg></button></div></div><div class="progress-wrap"><div class="progress"><div class="progress-bar" style="width:${pct}%"></div></div><div class="progress-text">${g.progress}/${g.target}</div></div>${!g.done ? `<div class="progress-controls"><button onclick="updateGoalProgress('${g.id}', -1)">−1</button><button onclick="updateGoalProgress('${g.id}', 1)">+1</button></div>` : ''}</div>`;
+  const deadlineHtml = g.deadline ? `<div class="goal-deadline ${isOverdue(g) ? 'overdue' : ''}">${g.done ? 'complété' : relativeDate(g.deadline)}</div>` : (g.done ? '<div class="goal-deadline">complété</div>' : '');
+  return `<div class="goal"><div class="goal-head"><div style="flex:1;"><div class="goal-name ${g.done ? 'done' : ''}">${escape(g.name)}</div>${deadlineHtml}</div><div class="goal-actions"><button class="icon-btn" onclick="toggleGoalDone('${g.id}')" aria-label="Toggle">${g.done ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9"/><polyline points="3 4 3 12 11 12"/></svg>` : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`}</button><button class="icon-btn" onclick="confirmDeleteGoal('${g.id}')" aria-label="Supprimer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg></button></div></div><div class="progress-wrap"><div class="progress"><div class="progress-bar" style="width:${pct}%"></div></div><div class="progress-text">${g.progress}/${g.target}</div></div>${!g.done ? `<div class="progress-controls"><button onclick="updateGoalProgress('${g.id}', -1)">−1</button><button onclick="updateGoalProgress('${g.id}', 1)">+1</button></div>` : ''}</div>`;
 }
 
 function journalCard(j) {
   const d = new Date(j.createdAt);
-  return `<div class="journal-entry"><div class="journal-head"><div class="journal-date">${formatDate(d)} · ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}</div><div class="journal-mood">${j.mood || ''}</div></div><div class="journal-text">${escape(j.text)}</div><div style="text-align:right; margin-top:8px;"><button class="icon-btn" onclick="confirmDeleteJournal('${j.id}')" aria-label="Supprimer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg></button></div></div>`;
+  const dateStr = `${formatDate(d)} · ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+  const mood = moodLabel(j.mood);
+  return `<div class="journal-entry"><div class="journal-head"><div class="journal-date">${dateStr}</div>${mood ? `<div class="journal-mood">${mood}</div>` : ''}</div><div class="journal-text">${escape(j.text)}</div><div class="journal-foot"><button class="icon-btn" onclick="confirmDeleteJournal('${j.id}')" aria-label="Supprimer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg></button></div></div>`;
 }
 
 function emptyHtml(title, sub, type) {
   const icons = {
-    habit: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a8a29e" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
-    goal: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a8a29e" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
-    journal: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a8a29e" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'
+    habit: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
+    goal: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+    journal: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'
   };
   return `<div class="empty"><div class="empty-icon">${icons[type] || ''}</div><div class="empty-title">${title}</div><div class="empty-sub">${sub}</div></div>`;
 }
@@ -1146,8 +1946,8 @@ function openGoalForm() {
 let selectedMood = null;
 function openJournalForm() {
   selectedMood = null;
-  const moods = ['😊','🙂','😐','😕','😢'];
-  openModal(`<div class="modal-title">Nouvelle entrée</div><form id="journalForm" novalidate><div class="field"><label>Comment tu te sens ?</label><div class="mood-picker">${moods.map(m => `<button type="button" class="mood-option" data-mood="${m}">${m}</button>`).join('')}</div></div><div class="field"><label for="journalText">Note</label><textarea id="journalText" placeholder="Qu'est-ce qui se passe aujourd'hui ?"></textarea></div><button type="submit" class="btn-primary">Enregistrer</button><button type="button" class="btn-ghost" data-action="cancel">Annuler</button></form>`);
+  const opts = MOOD_KEYS.map((key, i) => `<button type="button" class="mood-option" data-mood="${key}"><span class="mood-glyph g${i+1}"></span><span class="mood-label">${MOOD_LABELS[key]}</span></button>`).join('');
+  openModal(`<div class="modal-title">Nouvelle entrée</div><form id="journalForm" novalidate><div class="field"><label>Comment tu te sens ?</label><div class="mood-picker">${opts}</div></div><div class="field"><label for="journalText">Note</label><textarea id="journalText" placeholder="Qu'est-ce qui se passe aujourd'hui ?"></textarea></div><button type="submit" class="btn-primary">Enregistrer</button><button type="button" class="btn-ghost" data-action="cancel">Annuler</button></form>`);
   const form = $('#journalForm'), textarea = $('#journalText');
   form.querySelectorAll('.mood-option').forEach(opt => {
     opt.addEventListener('click', () => { form.querySelectorAll('.mood-option').forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); selectedMood = opt.dataset.mood; });
@@ -1189,9 +1989,21 @@ document.querySelectorAll('.tab').forEach(btn => {
 $('#fab').addEventListener('click', openAddModal);
 $('#sidebarNew').addEventListener('click', openAddModal);
 
-window.addEventListener('scroll', () => {
-  $('#appHeader').classList.toggle('scrolled', window.scrollY > 4);
-}, { passive: true });
+const mainEl = document.getElementById('main');
+function updateHeaderScroll() {
+  const scrolled = (window.scrollY > 4) || (mainEl && mainEl.scrollTop > 4);
+  $('#appHeader').classList.toggle('scrolled', scrolled);
+}
+window.addEventListener('scroll', updateHeaderScroll, { passive: true });
+if (mainEl) mainEl.addEventListener('scroll', updateHeaderScroll, { passive: true });
+
+/* ---------- Habit checkbox keyboard ---------- */
+document.addEventListener('keydown', (e) => {
+  if (e.target && e.target.classList && e.target.classList.contains('habit-check') && (e.key === ' ' || e.key === 'Enter')) {
+    e.preventDefault();
+    e.target.click();
+  }
+});
 
 /* ---------- Expose for inline handlers ---------- */
 window.toggleHabit = toggleHabit;
