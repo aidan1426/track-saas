@@ -80,17 +80,8 @@
     padding: 24px;
   }
   .auth-container { width: 100%; max-width: 380px; }
-  .auth-logo {
-    font-size: 34px;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 4px;
-  }
-  .auth-subtitle {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 36px;
-  }
+  .auth-logo { font-size: 34px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 4px; }
+  .auth-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 36px; }
   .auth-error {
     background: #fef2f2;
     border: 1px solid #fecaca;
@@ -132,28 +123,10 @@
     transition: border-color .2s;
   }
   .app-header.scrolled { border-color: var(--border); }
-  .greeting {
-    font-size: 13px;
-    color: var(--text-muted);
-    font-weight: 500;
-  }
-  .header-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .header-title {
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-top: 2px;
-  }
-  .date-line {
-    font-size: 13px;
-    color: var(--text-soft);
-    margin-top: 4px;
-    text-transform: capitalize;
-  }
+  .greeting { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+  .header-row { display: flex; align-items: center; justify-content: space-between; }
+  .header-title { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; margin-top: 2px; }
+  .date-line { font-size: 13px; color: var(--text-soft); margin-top: 4px; text-transform: capitalize; }
   .signout-btn {
     background: none;
     border: none;
@@ -182,6 +155,10 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* Today grid (single col mobile, 2 col desktop) */
+  .today-grid { display: block; }
+  .today-grid-goals { margin-top: 22px; }
+
   /* Section */
   .section-head {
     display: flex;
@@ -189,273 +166,69 @@
     justify-content: space-between;
     margin: 4px 2px 12px;
   }
-  .section-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .section-sub {
-    font-size: 12px;
-    color: var(--text-soft);
-  }
+  .section-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .section-sub { font-size: 12px; color: var(--text-soft); }
 
   /* Cards */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    box-shadow: var(--shadow);
-  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
   .card + .card { margin-top: 10px; }
 
   /* Stats grid */
-  .stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-  .stat {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px;
-  }
-  .stat-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-  .stat-value {
-    font-size: 24px;
-    font-weight: 700;
-    margin-top: 6px;
-    letter-spacing: -0.02em;
-  }
-  .stat-meta {
-    font-size: 11px;
-    color: var(--text-soft);
-    margin-top: 2px;
-  }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
+  .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+  .stat-value { font-size: 24px; font-weight: 700; margin-top: 6px; letter-spacing: -0.02em; }
+  .stat-meta { font-size: 11px; color: var(--text-soft); margin-top: 2px; }
 
   /* Habit row */
-  .habit {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 14px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-  }
+  .habit { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
   .habit + .habit { margin-top: 8px; }
   .habit-check {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 1.5px solid var(--border);
-    flex-shrink: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all .15s;
-    background: var(--surface);
+    width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--border);
+    flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all .15s; background: var(--surface);
   }
-  .habit-check.done {
-    background: var(--accent);
-    border-color: var(--accent);
-    animation: pop .3s ease;
-  }
-  @keyframes pop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
-  }
-  .habit-check.done::after {
-    content: '';
-    width: 12px;
-    height: 6px;
-    border-left: 2px solid white;
-    border-bottom: 2px solid white;
-    transform: rotate(-45deg) translate(1px,-1px);
-  }
+  .habit-check.done { background: var(--accent); border-color: var(--accent); animation: pop .3s ease; }
+  @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+  .habit-check.done::after { content: ''; width: 12px; height: 6px; border-left: 2px solid white; border-bottom: 2px solid white; transform: rotate(-45deg) translate(1px,-1px); }
   .habit-body { flex: 1; min-width: 0; }
-  .habit-name {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text);
-  }
-  .habit-meta {
-    font-size: 12px;
-    color: var(--text-soft);
-    margin-top: 2px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .streak {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    color: #ea580c;
-    font-weight: 500;
-  }
-  .habit-delete {
-    background: transparent;
-    border: none;
-    color: var(--text-soft);
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .habit-name { font-size: 15px; font-weight: 500; color: var(--text); }
+  .habit-meta { font-size: 12px; color: var(--text-soft); margin-top: 2px; display: flex; align-items: center; gap: 8px; }
+  .streak { display: inline-flex; align-items: center; gap: 3px; color: #ea580c; font-weight: 500; }
+  .habit-delete { background: transparent; border: none; color: var(--text-soft); cursor: pointer; padding: 6px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
   .habit-delete:hover { background: var(--surface-2); color: var(--danger); }
 
   /* Goal */
-  .goal {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    box-shadow: var(--shadow);
-  }
+  .goal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
   .goal + .goal { margin-top: 10px; }
-  .goal-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  .goal-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    flex: 1;
-  }
+  .goal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .goal-name { font-size: 15px; font-weight: 600; color: var(--text); flex: 1; }
   .goal-name.done { text-decoration: line-through; color: var(--text-soft); }
   .goal-actions { display: flex; gap: 2px; }
-  .icon-btn {
-    background: transparent;
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    cursor: pointer;
-    color: var(--text-soft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .icon-btn { background: transparent; border: none; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; color: var(--text-soft); display: flex; align-items: center; justify-content: center; }
   .icon-btn:hover { background: var(--surface-2); color: var(--text); }
-  .goal-deadline {
-    font-size: 12px;
-    color: var(--text-soft);
-    margin-top: 2px;
-  }
+  .goal-deadline { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
   .goal-deadline.overdue { color: var(--danger); }
-  .progress-wrap {
-    margin-top: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .progress {
-    flex: 1;
-    height: 6px;
-    background: var(--surface-2);
-    border-radius: 999px;
-    overflow: hidden;
-  }
-  .progress-bar {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 999px;
-    transition: width .3s;
-  }
-  .progress-text {
-    font-size: 12px;
-    color: var(--text-muted);
-    font-weight: 500;
-    min-width: 38px;
-    text-align: right;
-  }
-  .progress-controls {
-    display: flex;
-    gap: 6px;
-    margin-top: 10px;
-  }
-  .progress-controls button {
-    flex: 1;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 6px 10px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    cursor: pointer;
-    font-family: inherit;
-  }
+  .progress-wrap { margin-top: 12px; display: flex; align-items: center; gap: 10px; }
+  .progress { flex: 1; height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+  .progress-bar { height: 100%; background: var(--accent); border-radius: 999px; transition: width .3s; }
+  .progress-text { font-size: 12px; color: var(--text-muted); font-weight: 500; min-width: 38px; text-align: right; }
+  .progress-controls { display: flex; gap: 6px; margin-top: 10px; }
+  .progress-controls button { flex: 1; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 13px; font-weight: 500; color: var(--text); cursor: pointer; font-family: inherit; }
   .progress-controls button:active { background: var(--border); }
 
   /* Journal */
-  .journal-entry {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    box-shadow: var(--shadow);
-  }
+  .journal-entry { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
   .journal-entry + .journal-entry { margin-top: 10px; }
-  .journal-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-  }
-  .journal-date {
-    font-size: 12px;
-    color: var(--text-muted);
-    font-weight: 500;
-  }
+  .journal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .journal-date { font-size: 12px; color: var(--text-muted); font-weight: 500; }
   .journal-mood { font-size: 18px; }
-  .journal-text {
-    font-size: 14px;
-    line-height: 1.55;
-    color: var(--text);
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
+  .journal-text { font-size: 14px; line-height: 1.55; color: var(--text); white-space: pre-wrap; word-wrap: break-word; }
 
   /* Empty state */
-  .empty {
-    text-align: center;
-    padding: 48px 20px;
-    color: var(--text-soft);
-  }
-  .empty-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 12px;
-    border-radius: 50%;
-    background: var(--surface-2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .empty-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
+  .empty { text-align: center; padding: 48px 20px; color: var(--text-soft); }
+  .empty-icon { width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 50%; background: var(--surface-2); display: flex; align-items: center; justify-content: center; }
+  .empty-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
   .empty-sub { font-size: 13px; color: var(--text-soft); }
 
   /* FAB */
@@ -463,31 +236,19 @@
     position: fixed;
     bottom: 90px;
     right: max(20px, calc(50% - 240px + 20px));
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: white;
-    border: none;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--accent); color: white; border: none;
     box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 50;
-    transition: transform .15s;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    z-index: 50; transition: transform .15s;
     -webkit-tap-highlight-color: transparent;
   }
   .fab:active { transform: scale(0.92); }
 
   /* Tab bar */
   .tabbar {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 480px;
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px;
     background: rgba(255,255,255,0.85);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -497,194 +258,48 @@
     z-index: 30;
   }
   .tab {
-    flex: 1;
-    background: transparent;
-    border: none;
-    padding: 8px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    color: var(--text-soft);
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 500;
+    flex: 1; background: transparent; border: none;
+    padding: 8px 0; display: flex; flex-direction: column;
+    align-items: center; gap: 3px; color: var(--text-soft);
+    cursor: pointer; font-family: inherit; font-size: 11px; font-weight: 500;
     transition: color .15s;
   }
   .tab.active { color: var(--accent); }
   .tab svg { transition: transform .15s; }
   .tab.active svg { transform: scale(1.05); }
 
+  /* Sidebar extras — hidden on mobile */
+  .sidebar-brand, .sidebar-new, .sidebar-spacer, .sidebar-bottom { display: none; }
+
   /* Modal */
-  .modal-bg {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    z-index: 100;
-    display: none;
-    align-items: flex-end;
-    justify-content: center;
-    animation: fade .2s;
-  }
+  .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; display: none; align-items: flex-end; justify-content: center; animation: fade .2s; }
   .modal-bg.show { display: flex; }
-  .modal {
-    width: 100%;
-    max-width: 480px;
-    background: var(--surface);
-    border-radius: 20px 20px 0 0;
-    padding: 18px 20px calc(20px + env(safe-area-inset-bottom));
-    animation: slideUp .25s cubic-bezier(0.2, 0.9, 0.3, 1);
-    max-height: 88vh;
-    overflow-y: auto;
-  }
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
-  }
-  .modal-handle {
-    width: 38px;
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    margin: 0 auto 14px;
-  }
-  .modal-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
-  }
+  .modal { width: 100%; max-width: 480px; background: var(--surface); border-radius: 20px 20px 0 0; padding: 18px 20px calc(20px + env(safe-area-inset-bottom)); animation: slideUp .25s cubic-bezier(0.2, 0.9, 0.3, 1); max-height: 88vh; overflow-y: auto; }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .modal-handle { width: 38px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 14px; }
+  .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.01em; }
   .field { margin-bottom: 14px; }
-  .field label {
-    display: block;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-muted);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-  .field input,
-  .field textarea,
-  .field select {
-    width: 100%;
-    background: var(--surface-2);
-    border: 1px solid transparent;
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    font-size: 15px;
-    color: var(--text);
-    font-family: inherit;
-    transition: all .15s;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-  .field input:focus,
-  .field textarea:focus,
-  .field select:focus {
-    outline: none;
-    background: var(--surface);
-    border-color: var(--accent);
-  }
-  .field input.invalid,
-  .field textarea.invalid {
-    border-color: var(--danger);
-    background: #fef2f2;
-    animation: shake .3s;
-  }
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
-  }
-  .field textarea {
-    min-height: 120px;
-    resize: vertical;
-    line-height: 1.5;
-  }
-  .mood-picker {
-    display: flex;
-    gap: 8px;
-    justify-content: space-between;
-  }
-  .mood-option {
-    flex: 1;
-    aspect-ratio: 1;
-    background: var(--surface-2);
-    border: 1.5px solid transparent;
-    border-radius: var(--radius-sm);
-    font-size: 22px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all .15s;
-  }
-  .mood-option.selected {
-    border-color: var(--accent);
-    background: var(--surface);
-    transform: scale(1.05);
-  }
-  .btn-primary {
-    width: 100%;
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    padding: 14px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
-    margin-top: 6px;
-    transition: opacity .15s;
-  }
+  .field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .field input, .field textarea, .field select { width: 100%; background: var(--surface-2); border: 1px solid transparent; border-radius: var(--radius-sm); padding: 12px 14px; font-size: 15px; color: var(--text); font-family: inherit; transition: all .15s; -webkit-appearance: none; appearance: none; }
+  .field input:focus, .field textarea:focus, .field select:focus { outline: none; background: var(--surface); border-color: var(--accent); }
+  .field input.invalid, .field textarea.invalid { border-color: var(--danger); background: #fef2f2; animation: shake .3s; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+  .field textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+  .mood-picker { display: flex; gap: 8px; justify-content: space-between; }
+  .mood-option { flex: 1; aspect-ratio: 1; background: var(--surface-2); border: 1.5px solid transparent; border-radius: var(--radius-sm); font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+  .mood-option.selected { border-color: var(--accent); background: var(--surface); transform: scale(1.05); }
+  .btn-primary { width: 100%; background: var(--accent); color: white; border: none; border-radius: var(--radius-sm); padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; margin-top: 6px; transition: opacity .15s; }
   .btn-primary:active { opacity: 0.85; }
   .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-  .btn-ghost {
-    width: 100%;
-    background: transparent;
-    color: var(--text-muted);
-    border: none;
-    padding: 12px;
-    font-size: 14px;
-    cursor: pointer;
-    font-family: inherit;
-    margin-top: 4px;
-  }
+  .btn-ghost { width: 100%; background: transparent; color: var(--text-muted); border: none; padding: 12px; font-size: 14px; cursor: pointer; font-family: inherit; margin-top: 4px; }
 
   /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 160px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--accent);
-    color: white;
-    padding: 10px 18px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 500;
-    box-shadow: var(--shadow-lg);
-    z-index: 200;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .2s, transform .2s;
-  }
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(-4px);
-  }
+  .toast { position: fixed; bottom: 160px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 500; box-shadow: var(--shadow-lg); z-index: 200; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
 
-  /* Week dots for habits */
+  /* Week dots */
   .week-dots { display: flex; gap: 3px; }
-  .week-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--surface-2);
-  }
+  .week-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--surface-2); }
   .week-dot.done { background: var(--accent); }
 
   /* Stats view */
@@ -693,113 +308,198 @@
   .stats.cols-3 .stat-value { font-size: 20px; }
   .stats.cols-3 .stat-label { font-size: 10px; }
   .stats.cols-3 .stat-meta { font-size: 10px; }
-
-  .heatmap-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px;
-    box-shadow: var(--shadow);
-  }
-  .heatmap-labels {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    margin-bottom: 6px;
-    font-size: 10px;
-    color: var(--text-soft);
-    text-align: center;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-  }
-  .heatmap-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-  }
-  .heatmap-cell {
-    aspect-ratio: 1;
-    border-radius: 5px;
-    background: var(--surface-2);
-    transition: transform .15s;
-  }
+  .heatmap-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow); }
+  .heatmap-labels { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 6px; font-size: 10px; color: var(--text-soft); text-align: center; font-weight: 600; letter-spacing: 0.04em; }
+  .heatmap-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+  .heatmap-cell { aspect-ratio: 1; border-radius: 5px; background: var(--surface-2); transition: transform .15s; }
   .heatmap-cell.level-1 { background: #d6d3d1; }
   .heatmap-cell.level-2 { background: #78716c; }
   .heatmap-cell.level-3 { background: #44403c; }
   .heatmap-cell.level-4 { background: #1c1917; }
   .heatmap-cell.empty { visibility: hidden; }
   .heatmap-cell.today { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
-  .heatmap-legend {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 12px;
-    font-size: 10px;
-    color: var(--text-soft);
-    justify-content: flex-end;
-  }
+  .heatmap-legend { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 10px; color: var(--text-soft); justify-content: flex-end; }
   .legend-cells { display: flex; gap: 3px; }
-  .legend-cell {
-    width: 11px;
-    height: 11px;
-    border-radius: 3px;
-  }
-
-  .stat-row {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    box-shadow: var(--shadow);
-  }
+  .legend-cell { width: 11px; height: 11px; border-radius: 3px; }
+  .stat-row { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
   .stat-row + .stat-row { margin-top: 10px; }
-  .stat-row-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .stat-row-name {
-    font-size: 15px;
-    font-weight: 600;
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+  .stat-row-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .stat-row-name { font-size: 15px; font-weight: 600; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .stat-row-name.done { text-decoration: line-through; color: var(--text-soft); }
-  .pct-badge {
-    font-size: 12px;
-    font-weight: 600;
-    padding: 3px 9px;
-    background: var(--surface-2);
-    color: var(--text);
-    border-radius: 999px;
-    flex-shrink: 0;
-  }
+  .pct-badge { font-size: 12px; font-weight: 600; padding: 3px 9px; background: var(--surface-2); color: var(--text); border-radius: 999px; flex-shrink: 0; }
   .pct-badge.full { background: var(--accent); color: white; }
-  .strip {
-    display: grid;
-    grid-template-columns: repeat(14, 1fr);
-    gap: 3px;
-    margin-bottom: 10px;
-  }
-  .strip-cell {
-    height: 22px;
-    background: var(--surface-2);
-    border-radius: 3px;
-  }
+  .strip { display: grid; grid-template-columns: repeat(14, 1fr); gap: 3px; margin-bottom: 10px; }
+  .strip-cell { height: 22px; background: var(--surface-2); border-radius: 3px; }
   .strip-cell.done { background: var(--accent); }
   .strip-cell.today { box-shadow: inset 0 0 0 1.5px var(--accent); }
-  .stat-row-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: var(--text-soft);
-  }
+  .stat-row-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-soft); }
   .stat-row-meta .streak { color: #ea580c; font-weight: 500; }
+
+  /* ===================== DESKTOP ===================== */
+  @media (min-width: 768px) {
+    body {
+      max-width: 100%;
+      flex-direction: row;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .tabbar {
+      position: static;
+      transform: none;
+      width: 220px;
+      height: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      border-top: none;
+      border-right: 1px solid var(--border);
+      padding: 16px 10px;
+      background: var(--surface);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      gap: 2px;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-brand {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      padding: 6px 12px 18px;
+      color: var(--text);
+    }
+
+    .tab {
+      flex-direction: row;
+      justify-content: flex-start;
+      padding: 9px 12px;
+      border-radius: 9px;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      width: 100%;
+      flex: none;
+    }
+    .tab.active { background: var(--surface-2); color: var(--text); }
+    .tab svg { transform: none !important; }
+    .tab.active svg { transform: none !important; }
+
+    .sidebar-new {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 8px;
+    }
+    .sidebar-new:hover { opacity: 0.88; }
+
+    .sidebar-spacer { display: block; flex: 1; }
+
+    .sidebar-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-email {
+      font-size: 11px;
+      color: var(--text-soft);
+      padding: 2px 12px 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sidebar-signout-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+    }
+    .sidebar-signout-btn:hover { background: var(--surface-2); color: var(--text); }
+
+    /* App content */
+    #appContent {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .app-header {
+      padding: 28px 40px 16px;
+      position: static;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .app-header.scrolled { border-color: var(--border); }
+    .header-title { font-size: 22px; }
+    .signout-btn { display: none; }
+
+    main {
+      flex: 1;
+      padding: 24px 40px 40px;
+      overflow-y: auto;
+      max-width: none;
+    }
+
+    .fab { display: none !important; }
+
+    /* Today — 2 columns */
+    .today-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .today-grid-goals { margin-top: 0; }
+
+    /* Stats */
+    .stats { grid-template-columns: repeat(4, 1fr); }
+    .stats.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+    /* Modal: centered dialog */
+    .modal-bg { align-items: center; }
+    .modal {
+      border-radius: 16px;
+      margin: 0;
+      max-width: 460px;
+      animation: scaleIn .2s ease;
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Toast: above bottom */
+    .toast { bottom: 40px; }
+  }
 </style>
 </head>
 <body>
@@ -833,141 +533,167 @@
   </div>
 </div>
 
-<header class="app-header" id="appHeader">
-  <div class="greeting" id="greeting">Bonjour</div>
-  <div class="header-row">
-    <div class="header-title" id="viewTitle">Aujourd'hui</div>
-    <button class="signout-btn" id="signOutBtn" title="Se déconnecter">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+<!-- Sidebar / Tab bar -->
+<nav class="tabbar" id="tabbar">
+  <div class="sidebar-brand">Track</div>
+
+  <button class="tab active" data-view="today">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2 7-7 7 7 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    <span>Today</span>
+  </button>
+  <button class="tab" data-view="habits">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    <span>Habits</span>
+  </button>
+  <button class="tab" data-view="goals">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    <span>Goals</span>
+  </button>
+  <button class="tab" data-view="journal">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    <span>Journal</span>
+  </button>
+  <button class="tab" data-view="stats">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    <span>Stats</span>
+  </button>
+
+  <button class="sidebar-new" id="sidebarNew">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Nouveau
+  </button>
+
+  <div class="sidebar-spacer"></div>
+
+  <div class="sidebar-bottom">
+    <div class="sidebar-email" id="sidebarEmail"></div>
+    <button class="sidebar-signout-btn" id="signOutBtnDesktop">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Se déconnecter
     </button>
   </div>
-  <div class="date-line" id="dateLine"></div>
-</header>
+</nav>
 
-<main id="main">
-  <!-- TODAY -->
-  <section class="view active" id="view-today">
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-label">Habits</div>
-        <div class="stat-value" id="statHabits">0/0</div>
-        <div class="stat-meta" id="statHabitsMeta">aujourd'hui</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Goals</div>
-        <div class="stat-value" id="statGoals">0</div>
-        <div class="stat-meta" id="statGoalsMeta">en cours</div>
-      </div>
+<!-- App content -->
+<div id="appContent">
+  <header class="app-header" id="appHeader">
+    <div class="greeting" id="greeting">Bonjour</div>
+    <div class="header-row">
+      <div class="header-title" id="viewTitle">Aujourd'hui</div>
+      <button class="signout-btn" id="signOutBtn" title="Se déconnecter">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
     </div>
+    <div class="date-line" id="dateLine"></div>
+  </header>
 
-    <div class="section-head">
-      <div class="section-title">Habits du jour</div>
-      <div class="section-sub" id="todayDate"></div>
-    </div>
-    <div id="todayHabits"></div>
-
-    <div class="section-head" style="margin-top:22px;">
-      <div class="section-title">Goals actifs</div>
-    </div>
-    <div id="todayGoals"></div>
-  </section>
-
-  <!-- HABITS -->
-  <section class="view" id="view-habits">
-    <div id="habitsList"></div>
-  </section>
-
-  <!-- GOALS -->
-  <section class="view" id="view-goals">
-    <div id="goalsList"></div>
-  </section>
-
-  <!-- JOURNAL -->
-  <section class="view" id="view-journal">
-    <div id="journalList"></div>
-  </section>
-
-  <!-- STATS -->
-  <section class="view" id="view-stats">
-    <div class="stats cols-3">
-      <div class="stat">
-        <div class="stat-label">Consistance</div>
-        <div class="stat-value" id="statConsistency">0%</div>
-        <div class="stat-meta">30 derniers j.</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Streak max</div>
-        <div class="stat-value" id="statLongestStreak">0</div>
-        <div class="stat-meta">jours</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Goals</div>
-        <div class="stat-value" id="statGoalsCompleted">0</div>
-        <div class="stat-meta">complétés</div>
-      </div>
-    </div>
-
-    <div class="section-head">
-      <div class="section-title">Constance des habits</div>
-      <div class="section-sub">5 sem.</div>
-    </div>
-    <div class="heatmap-card">
-      <div class="heatmap-labels">
-        <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
-      </div>
-      <div class="heatmap-grid" id="heatmapGrid"></div>
-      <div class="heatmap-legend">
-        <span>moins</span>
-        <div class="legend-cells">
-          <div class="legend-cell" style="background:var(--surface-2)"></div>
-          <div class="legend-cell" style="background:#d6d3d1"></div>
-          <div class="legend-cell" style="background:#78716c"></div>
-          <div class="legend-cell" style="background:#44403c"></div>
-          <div class="legend-cell" style="background:#1c1917"></div>
+  <main id="main">
+    <!-- TODAY -->
+    <section class="view active" id="view-today">
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Habits</div>
+          <div class="stat-value" id="statHabits">0/0</div>
+          <div class="stat-meta" id="statHabitsMeta">aujourd'hui</div>
         </div>
-        <span>plus</span>
+        <div class="stat">
+          <div class="stat-label">Goals</div>
+          <div class="stat-value" id="statGoals">0</div>
+          <div class="stat-meta" id="statGoalsMeta">en cours</div>
+        </div>
       </div>
-    </div>
 
-    <div class="section-head" style="margin-top:22px;">
-      <div class="section-title">Détail par habit</div>
-      <div class="section-sub">14 j.</div>
-    </div>
-    <div id="habitStatsList"></div>
+      <div class="today-grid">
+        <div>
+          <div class="section-head">
+            <div class="section-title">Habits du jour</div>
+            <div class="section-sub" id="todayDate"></div>
+          </div>
+          <div id="todayHabits"></div>
+        </div>
+        <div class="today-grid-goals">
+          <div class="section-head">
+            <div class="section-title">Goals actifs</div>
+          </div>
+          <div id="todayGoals"></div>
+        </div>
+      </div>
+    </section>
 
-    <div class="section-head" style="margin-top:22px;">
-      <div class="section-title">Avancement des goals</div>
-    </div>
-    <div id="goalStatsList"></div>
-  </section>
-</main>
+    <!-- HABITS -->
+    <section class="view" id="view-habits">
+      <div id="habitsList"></div>
+    </section>
+
+    <!-- GOALS -->
+    <section class="view" id="view-goals">
+      <div id="goalsList"></div>
+    </section>
+
+    <!-- JOURNAL -->
+    <section class="view" id="view-journal">
+      <div id="journalList"></div>
+    </section>
+
+    <!-- STATS -->
+    <section class="view" id="view-stats">
+      <div class="stats cols-3">
+        <div class="stat">
+          <div class="stat-label">Consistance</div>
+          <div class="stat-value" id="statConsistency">0%</div>
+          <div class="stat-meta">30 derniers j.</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Streak max</div>
+          <div class="stat-value" id="statLongestStreak">0</div>
+          <div class="stat-meta">jours</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Goals</div>
+          <div class="stat-value" id="statGoalsCompleted">0</div>
+          <div class="stat-meta">complétés</div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <div class="section-title">Constance des habits</div>
+        <div class="section-sub">5 sem.</div>
+      </div>
+      <div class="heatmap-card">
+        <div class="heatmap-labels">
+          <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
+        </div>
+        <div class="heatmap-grid" id="heatmapGrid"></div>
+        <div class="heatmap-legend">
+          <span>moins</span>
+          <div class="legend-cells">
+            <div class="legend-cell" style="background:var(--surface-2)"></div>
+            <div class="legend-cell" style="background:#d6d3d1"></div>
+            <div class="legend-cell" style="background:#78716c"></div>
+            <div class="legend-cell" style="background:#44403c"></div>
+            <div class="legend-cell" style="background:#1c1917"></div>
+          </div>
+          <span>plus</span>
+        </div>
+      </div>
+
+      <div class="section-head" style="margin-top:22px;">
+        <div class="section-title">Détail par habit</div>
+        <div class="section-sub">14 j.</div>
+      </div>
+      <div id="habitStatsList"></div>
+
+      <div class="section-head" style="margin-top:22px;">
+        <div class="section-title">Avancement des goals</div>
+      </div>
+      <div id="goalStatsList"></div>
+    </section>
+  </main>
+</div>
 
 <button class="fab" id="fab" aria-label="Ajouter">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
 </button>
-
-<nav class="tabbar">
-  <button class="tab active" data-view="today">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2 7-7 7 7 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-    <span>Today</span>
-  </button>
-  <button class="tab" data-view="habits">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-    <span>Habits</span>
-  </button>
-  <button class="tab" data-view="goals">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-    <span>Goals</span>
-  </button>
-  <button class="tab" data-view="journal">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-    <span>Journal</span>
-  </button>
-  <button class="tab" data-view="stats">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-    <span>Stats</span>
-  </button>
-</nav>
 
 <!-- Modal -->
 <div class="modal-bg" id="modalBg">
@@ -1033,15 +759,12 @@ auth.onAuthStateChanged(async (user) => {
   document.getElementById('loadingScreen').style.display = 'none';
   currentUser = user;
   if (user) {
+    document.getElementById('sidebarEmail').textContent = user.email;
     try {
       const doc = await db.collection('users').doc(user.uid).get();
       if (doc.exists) {
         const data = doc.data();
-        state = {
-          habits: data.habits || [],
-          goals: data.goals || [],
-          journal: data.journal || []
-        };
+        state = { habits: data.habits || [], goals: data.goals || [], journal: data.journal || [] };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       } else {
         state = { habits: [], goals: [], journal: [] };
@@ -1105,12 +828,14 @@ function getAuthError(code) {
   return errors[code] || 'Une erreur est survenue.';
 }
 
-document.getElementById('signOutBtn').addEventListener('click', () => {
+function doSignOut() {
   if (confirm('Se déconnecter ?')) {
     auth.signOut();
     localStorage.removeItem(STORAGE_KEY);
   }
-});
+}
+document.getElementById('signOutBtn').addEventListener('click', doSignOut);
+document.getElementById('signOutBtnDesktop').addEventListener('click', doSignOut);
 
 /* ---------- Utils ---------- */
 const $ = (s) => document.querySelector(s);
@@ -1124,12 +849,8 @@ const uid = () => Math.random().toString(36).slice(2, 10);
 const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
 const days = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
 
-function formatDate(d) {
-  return `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]}`;
-}
-function formatShort(d) {
-  return `${d.getDate()} ${months[d.getMonth()].slice(0,3)}.`;
-}
+function formatDate(d) { return `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]}`; }
+function formatShort(d) { return `${d.getDate()} ${months[d.getMonth()].slice(0,3)}.`; }
 function relativeDate(iso) {
   const d = new Date(iso);
   const today = new Date(); today.setHours(0,0,0,0);
@@ -1141,7 +862,6 @@ function relativeDate(iso) {
   if (diff < 7) return `dans ${diff} j.`;
   return formatShort(d);
 }
-
 function greetingFor(d) {
   const h = d.getHours();
   if (h < 6) return 'Bonsoir';
@@ -1149,7 +869,6 @@ function greetingFor(d) {
   if (h < 18) return 'Bon après-midi';
   return 'Bonsoir';
 }
-
 function toast(msg) {
   const t = $('#toast');
   t.textContent = msg;
@@ -1159,9 +878,7 @@ function toast(msg) {
 }
 
 /* ---------- Habits logic ---------- */
-function isHabitDoneToday(h) {
-  return h.history && h.history[todayKey()];
-}
+function isHabitDoneToday(h) { return h.history && h.history[todayKey()]; }
 function toggleHabit(id) {
   const h = state.habits.find(x => x.id === id);
   if (!h) return;
@@ -1181,10 +898,7 @@ function habitStreak(h) {
       streak++;
       d.setDate(d.getDate() - 1);
     } else {
-      if (streak === 0 && dateKey(d) === todayKey()) {
-        d.setDate(d.getDate() - 1);
-        continue;
-      }
+      if (streak === 0 && dateKey(d) === todayKey()) { d.setDate(d.getDate() - 1); continue; }
       break;
     }
   }
@@ -1196,24 +910,18 @@ function habitWeekDots(h) {
   for (let i = 6; i >= 0; i--) {
     const d = new Date(today);
     d.setDate(today.getDate() - i);
-    const done = h.history && h.history[dateKey(d)];
-    dots.push(done ? 'done' : '');
+    dots.push(h.history && h.history[dateKey(d)] ? 'done' : '');
   }
   return dots;
 }
-function deleteHabit(id) {
-  state.habits = state.habits.filter(h => h.id !== id);
-  saveState(); render();
-  toast('Habit supprimée');
-}
+function deleteHabit(id) { state.habits = state.habits.filter(h => h.id !== id); saveState(); render(); toast('Habit supprimée'); }
 
 /* ---------- Goals logic ---------- */
 function updateGoalProgress(id, delta) {
   const g = state.goals.find(x => x.id === id);
   if (!g) return;
   g.progress = Math.max(0, Math.min(g.target, (g.progress || 0) + delta));
-  if (g.progress >= g.target) g.done = true;
-  else g.done = false;
+  g.done = g.progress >= g.target;
   saveState(); render();
 }
 function toggleGoalDone(id) {
@@ -1223,18 +931,10 @@ function toggleGoalDone(id) {
   if (g.done) g.progress = g.target;
   saveState(); render();
 }
-function deleteGoal(id) {
-  state.goals = state.goals.filter(g => g.id !== id);
-  saveState(); render();
-  toast('Goal supprimé');
-}
+function deleteGoal(id) { state.goals = state.goals.filter(g => g.id !== id); saveState(); render(); toast('Goal supprimé'); }
 
 /* ---------- Journal logic ---------- */
-function deleteJournal(id) {
-  state.journal = state.journal.filter(j => j.id !== id);
-  saveState(); render();
-  toast('Entrée supprimée');
-}
+function deleteJournal(id) { state.journal = state.journal.filter(j => j.id !== id); saveState(); render(); toast('Entrée supprimée'); }
 
 /* ---------- Render ---------- */
 let currentView = 'today';
@@ -1247,9 +947,7 @@ function render() {
     renderGoals();
     renderJournal();
     renderStats();
-  } catch (e) {
-    console.error('Render error:', e);
-  }
+  } catch (e) { console.error('Render error:', e); }
 }
 
 function renderHeader() {
@@ -1265,56 +963,32 @@ function renderToday() {
   const done = habits.filter(isHabitDoneToday).length;
   $('#statHabits').textContent = `${done}/${habits.length}`;
   $('#statHabitsMeta').textContent = habits.length === 0 ? 'aucune' : (done === habits.length ? 'tout fait !' : `${habits.length - done} restantes`);
-
   const activeGoals = state.goals.filter(g => !g.done);
   $('#statGoals').textContent = activeGoals.length;
   $('#statGoalsMeta').textContent = state.goals.filter(g => g.done).length + ' complétés';
-
   $('#todayDate').textContent = formatShort(new Date());
-
-  const habitsHtml = habits.length === 0
-    ? emptyHtml('Aucune habit', 'Touche + pour en créer une', 'habit')
-    : habits.map(habitRow).join('');
-  $('#todayHabits').innerHTML = habitsHtml;
-
-  const goalsHtml = activeGoals.length === 0
-    ? emptyHtml('Aucun goal actif', 'Touche + pour en créer un', 'goal')
-    : activeGoals.slice(0, 3).map(goalCard).join('');
-  $('#todayGoals').innerHTML = goalsHtml;
+  $('#todayHabits').innerHTML = habits.length === 0 ? emptyHtml('Aucune habit', 'Touche + pour en créer une', 'habit') : habits.map(habitRow).join('');
+  $('#todayGoals').innerHTML = activeGoals.length === 0 ? emptyHtml('Aucun goal actif', 'Touche + pour en créer un', 'goal') : activeGoals.slice(0, 3).map(goalCard).join('');
 }
 
 function renderHabits() {
-  if (state.habits.length === 0) {
-    $('#habitsList').innerHTML = emptyHtml('Aucune habit', 'Crée ta première habit pour commencer ton streak', 'habit');
-    return;
-  }
-  $('#habitsList').innerHTML = state.habits.map(habitRow).join('');
+  $('#habitsList').innerHTML = state.habits.length === 0
+    ? emptyHtml('Aucune habit', 'Crée ta première habit pour commencer ton streak', 'habit')
+    : state.habits.map(habitRow).join('');
 }
 
 function renderGoals() {
-  if (state.goals.length === 0) {
-    $('#goalsList').innerHTML = emptyHtml('Aucun goal', 'Définis un objectif pour avancer', 'goal');
-    return;
-  }
+  if (state.goals.length === 0) { $('#goalsList').innerHTML = emptyHtml('Aucun goal', 'Définis un objectif pour avancer', 'goal'); return; }
   const active = state.goals.filter(g => !g.done);
   const done = state.goals.filter(g => g.done);
   let html = '';
-  if (active.length) {
-    html += `<div class="section-head"><div class="section-title">En cours</div><div class="section-sub">${active.length}</div></div>`;
-    html += active.map(goalCard).join('');
-  }
-  if (done.length) {
-    html += `<div class="section-head" style="margin-top:22px;"><div class="section-title">Complétés</div><div class="section-sub">${done.length}</div></div>`;
-    html += done.map(goalCard).join('');
-  }
+  if (active.length) { html += `<div class="section-head"><div class="section-title">En cours</div><div class="section-sub">${active.length}</div></div>`; html += active.map(goalCard).join(''); }
+  if (done.length) { html += `<div class="section-head" style="margin-top:22px;"><div class="section-title">Complétés</div><div class="section-sub">${done.length}</div></div>`; html += done.map(goalCard).join(''); }
   $('#goalsList').innerHTML = html;
 }
 
 function renderJournal() {
-  if (state.journal.length === 0) {
-    $('#journalList').innerHTML = emptyHtml('Aucune entrée', 'Note tes pensées du jour', 'journal');
-    return;
-  }
+  if (state.journal.length === 0) { $('#journalList').innerHTML = emptyHtml('Aucune entrée', 'Note tes pensées du jour', 'journal'); return; }
   const sorted = [...state.journal].sort((a,b) => b.createdAt - a.createdAt);
   $('#journalList').innerHTML = sorted.map(journalCard).join('');
 }
@@ -1322,12 +996,9 @@ function renderJournal() {
 function renderStats() {
   const habits = state.habits;
   const goals = state.goals;
-
-  let doneCount = 0;
-  let totalSlots = 0;
+  let doneCount = 0, totalSlots = 0;
   for (let i = 0; i < 30; i++) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
+    const d = new Date(); d.setDate(d.getDate() - i);
     const k = dateKey(d);
     habits.forEach(h => {
       const createdAt = h.createdAt || 0;
@@ -1339,24 +1010,15 @@ function renderStats() {
   }
   const avgConsistency = totalSlots > 0 ? Math.round((doneCount / totalSlots) * 100) : 0;
   const longestStreak = habits.length === 0 ? 0 : Math.max(0, ...habits.map(h => habitStreak(h)));
-  const goalsCompleted = goals.filter(g => g.done).length;
-
   $('#statConsistency').textContent = `${avgConsistency}%`;
   $('#statLongestStreak').textContent = longestStreak;
-  $('#statGoalsCompleted').textContent = goalsCompleted;
-
+  $('#statGoalsCompleted').textContent = goals.filter(g => g.done).length;
   $('#heatmapGrid').innerHTML = buildHeatmap().map(c => {
     if (c.empty) return `<div class="heatmap-cell empty"></div>`;
     return `<div class="heatmap-cell level-${c.level}${c.isToday ? ' today' : ''}" title="${c.title}"></div>`;
   }).join('');
-
-  $('#habitStatsList').innerHTML = habits.length === 0
-    ? emptyHtml('Pas encore de données', 'Crée des habits pour voir tes stats', 'habit')
-    : habits.map(habitStatRow).join('');
-
-  $('#goalStatsList').innerHTML = goals.length === 0
-    ? emptyHtml('Aucun goal', 'Crée des goals pour voir tes progrès', 'goal')
-    : goals.map(goalStatRow).join('');
+  $('#habitStatsList').innerHTML = habits.length === 0 ? emptyHtml('Pas encore de données', 'Crée des habits pour voir tes stats', 'habit') : habits.map(habitStatRow).join('');
+  $('#goalStatsList').innerHTML = goals.length === 0 ? emptyHtml('Aucun goal', 'Crée des goals pour voir tes progrès', 'goal') : goals.map(goalStatRow).join('');
 }
 
 function buildHeatmap() {
@@ -1364,15 +1026,10 @@ function buildHeatmap() {
   const dayOfWeek = (today.getDay() + 6) % 7;
   const startDate = new Date(today);
   startDate.setDate(today.getDate() - dayOfWeek - 28);
-
   const cells = [];
   for (let i = 0; i < 35; i++) {
-    const d = new Date(startDate);
-    d.setDate(startDate.getDate() + i);
-    if (d > today) {
-      cells.push({ empty: true });
-      continue;
-    }
+    const d = new Date(startDate); d.setDate(startDate.getDate() + i);
+    if (d > today) { cells.push({ empty: true }); continue; }
     const k = dateKey(d);
     const totalHabits = state.habits.length;
     const done = state.habits.filter(h => h.history && h.history[k]).length;
@@ -1382,12 +1039,7 @@ function buildHeatmap() {
     else if (ratio < 0.67) level = 2;
     else if (ratio < 1) level = 3;
     else if (ratio >= 1) level = 4;
-    if (ratio === 0) level = 0;
-    cells.push({
-      level,
-      isToday: dateKey(d) === todayKey(),
-      title: `${formatDate(d)} — ${done}/${totalHabits}`
-    });
+    cells.push({ level, isToday: dateKey(d) === todayKey(), title: `${formatDate(d)} — ${done}/${totalHabits}` });
   }
   return cells;
 }
@@ -1397,49 +1049,21 @@ function habitStatRow(h) {
   let done = 0;
   const cells = [];
   for (let i = 13; i >= 0; i--) {
-    const d = new Date(today);
-    d.setDate(today.getDate() - i);
+    const d = new Date(today); d.setDate(today.getDate() - i);
     const k = dateKey(d);
     const isDone = h.history && h.history[k];
     if (isDone) done++;
-    const isToday = k === todayKey();
-    cells.push(`<div class="strip-cell${isDone ? ' done' : ''}${isToday ? ' today' : ''}" title="${formatShort(d)}"></div>`);
+    cells.push(`<div class="strip-cell${isDone ? ' done' : ''}${k === todayKey() ? ' today' : ''}" title="${formatShort(d)}"></div>`);
   }
   const pct = Math.round((done / 14) * 100);
   const streak = habitStreak(h);
-  return `
-    <div class="stat-row">
-      <div class="stat-row-head">
-        <div class="stat-row-name">${escape(h.name)}</div>
-        <div class="pct-badge ${pct === 100 ? 'full' : ''}">${pct}%</div>
-      </div>
-      <div class="strip">${cells.join('')}</div>
-      <div class="stat-row-meta">
-        <span>${done}/14 jours</span>
-        ${streak > 0 ? `<span class="streak">🔥 ${streak}</span>` : '<span></span>'}
-      </div>
-    </div>
-  `;
+  return `<div class="stat-row"><div class="stat-row-head"><div class="stat-row-name">${escape(h.name)}</div><div class="pct-badge ${pct === 100 ? 'full' : ''}">${pct}%</div></div><div class="strip">${cells.join('')}</div><div class="stat-row-meta"><span>${done}/14 jours</span>${streak > 0 ? `<span class="streak">🔥 ${streak}</span>` : '<span></span>'}</div></div>`;
 }
 
 function goalStatRow(g) {
   const pct = g.target > 0 ? Math.round((g.progress / g.target) * 100) : 0;
-  const deadlineHtml = g.deadline
-    ? (g.done ? '✓ complété' : relativeDate(g.deadline))
-    : (g.done ? '✓ complété' : '');
-  return `
-    <div class="stat-row">
-      <div class="stat-row-head">
-        <div class="stat-row-name ${g.done ? 'done' : ''}">${escape(g.name)}</div>
-        <div class="pct-badge ${g.done ? 'full' : ''}">${pct}%</div>
-      </div>
-      <div class="progress" style="margin-bottom:10px;"><div class="progress-bar" style="width:${pct}%"></div></div>
-      <div class="stat-row-meta">
-        <span>${g.progress}/${g.target}</span>
-        <span>${deadlineHtml}</span>
-      </div>
-    </div>
-  `;
+  const deadlineHtml = g.deadline ? (g.done ? '✓ complété' : relativeDate(g.deadline)) : (g.done ? '✓ complété' : '');
+  return `<div class="stat-row"><div class="stat-row-head"><div class="stat-row-name ${g.done ? 'done' : ''}">${escape(g.name)}</div><div class="pct-badge ${g.done ? 'full' : ''}">${pct}%</div></div><div class="progress" style="margin-bottom:10px;"><div class="progress-bar" style="width:${pct}%"></div></div><div class="stat-row-meta"><span>${g.progress}/${g.target}</span><span>${deadlineHtml}</span></div></div>`;
 }
 
 /* ---------- Templates ---------- */
@@ -1447,77 +1071,18 @@ function habitRow(h) {
   const done = isHabitDoneToday(h);
   const streak = habitStreak(h);
   const dots = habitWeekDots(h).map(c => `<div class="week-dot ${c}"></div>`).join('');
-  return `
-    <div class="habit">
-      <div class="habit-check ${done ? 'done' : ''}" onclick="toggleHabit('${h.id}')"></div>
-      <div class="habit-body">
-        <div class="habit-name">${escape(h.name)}</div>
-        <div class="habit-meta">
-          ${streak > 0 ? `<span class="streak">🔥 ${streak}</span>` : '<span>—</span>'}
-          <div class="week-dots">${dots}</div>
-        </div>
-      </div>
-      <button class="habit-delete" onclick="confirmDeleteHabit('${h.id}')" aria-label="Supprimer">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
-      </button>
-    </div>
-  `;
+  return `<div class="habit"><div class="habit-check ${done ? 'done' : ''}" onclick="toggleHabit('${h.id}')"></div><div class="habit-body"><div class="habit-name">${escape(h.name)}</div><div class="habit-meta">${streak > 0 ? `<span class="streak">🔥 ${streak}</span>` : '<span>—</span>'}<div class="week-dots">${dots}</div></div></div><button class="habit-delete" onclick="confirmDeleteHabit('${h.id}')" aria-label="Supprimer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg></button></div>`;
 }
 
 function goalCard(g) {
   const pct = g.target > 0 ? Math.round((g.progress / g.target) * 100) : 0;
-  const deadlineHtml = g.deadline
-    ? `<div class="goal-deadline ${isOverdue(g) ? 'overdue' : ''}">${g.done ? '✓ complété' : relativeDate(g.deadline)}</div>`
-    : (g.done ? '<div class="goal-deadline">✓ complété</div>' : '');
-  return `
-    <div class="goal">
-      <div class="goal-head">
-        <div style="flex:1;">
-          <div class="goal-name ${g.done ? 'done' : ''}">${escape(g.name)}</div>
-          ${deadlineHtml}
-        </div>
-        <div class="goal-actions">
-          <button class="icon-btn" onclick="toggleGoalDone('${g.id}')" aria-label="Toggle">
-            ${g.done
-              ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9"/><polyline points="3 4 3 12 11 12"/></svg>`
-              : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`
-            }
-          </button>
-          <button class="icon-btn" onclick="confirmDeleteGoal('${g.id}')" aria-label="Supprimer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
-          </button>
-        </div>
-      </div>
-      <div class="progress-wrap">
-        <div class="progress"><div class="progress-bar" style="width:${pct}%"></div></div>
-        <div class="progress-text">${g.progress}/${g.target}</div>
-      </div>
-      ${!g.done ? `
-        <div class="progress-controls">
-          <button onclick="updateGoalProgress('${g.id}', -1)">−1</button>
-          <button onclick="updateGoalProgress('${g.id}', 1)">+1</button>
-        </div>
-      ` : ''}
-    </div>
-  `;
+  const deadlineHtml = g.deadline ? `<div class="goal-deadline ${isOverdue(g) ? 'overdue' : ''}">${g.done ? '✓ complété' : relativeDate(g.deadline)}</div>` : (g.done ? '<div class="goal-deadline">✓ complété</div>' : '');
+  return `<div class="goal"><div class="goal-head"><div style="flex:1;"><div class="goal-name ${g.done ? 'done' : ''}">${escape(g.name)}</div>${deadlineHtml}</div><div class="goal-actions"><button class="icon-btn" onclick="toggleGoalDone('${g.id}')" aria-label="Toggle">${g.done ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9"/><polyline points="3 4 3 12 11 12"/></svg>` : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`}</button><button class="icon-btn" onclick="confirmDeleteGoal('${g.id}')" aria-label="Supprimer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg></button></div></div><div class="progress-wrap"><div class="progress"><div class="progress-bar" style="width:${pct}%"></div></div><div class="progress-text">${g.progress}/${g.target}</div></div>${!g.done ? `<div class="progress-controls"><button onclick="updateGoalProgress('${g.id}', -1)">−1</button><button onclick="updateGoalProgress('${g.id}', 1)">+1</button></div>` : ''}</div>`;
 }
 
 function journalCard(j) {
   const d = new Date(j.createdAt);
-  return `
-    <div class="journal-entry">
-      <div class="journal-head">
-        <div class="journal-date">${formatDate(d)} · ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}</div>
-        <div class="journal-mood">${j.mood || ''}</div>
-      </div>
-      <div class="journal-text">${escape(j.text)}</div>
-      <div style="text-align:right; margin-top:8px;">
-        <button class="icon-btn" onclick="confirmDeleteJournal('${j.id}')" aria-label="Supprimer">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
-        </button>
-      </div>
-    </div>
-  `;
+  return `<div class="journal-entry"><div class="journal-head"><div class="journal-date">${formatDate(d)} · ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}</div><div class="journal-mood">${j.mood || ''}</div></div><div class="journal-text">${escape(j.text)}</div><div style="text-align:right; margin-top:8px;"><button class="icon-btn" onclick="confirmDeleteJournal('${j.id}')" aria-label="Supprimer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg></button></div></div>`;
 }
 
 function emptyHtml(title, sub, type) {
@@ -1526,13 +1091,7 @@ function emptyHtml(title, sub, type) {
     goal: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a8a29e" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
     journal: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a8a29e" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'
   };
-  return `
-    <div class="empty">
-      <div class="empty-icon">${icons[type] || ''}</div>
-      <div class="empty-title">${title}</div>
-      <div class="empty-sub">${sub}</div>
-    </div>
-  `;
+  return `<div class="empty"><div class="empty-icon">${icons[type] || ''}</div><div class="empty-title">${title}</div><div class="empty-sub">${sub}</div></div>`;
 }
 
 function isOverdue(g) {
@@ -1545,91 +1104,40 @@ function escape(s) {
 }
 
 /* ---------- Modal ---------- */
-function openModal(html) {
-  $('#modalContent').innerHTML = html;
-  $('#modalBg').classList.add('show');
-}
-function closeModal() {
-  $('#modalBg').classList.remove('show');
-}
-$('#modalBg').addEventListener('click', (e) => {
-  if (e.target === $('#modalBg')) closeModal();
-});
+function openModal(html) { $('#modalContent').innerHTML = html; $('#modalBg').classList.add('show'); }
+function closeModal() { $('#modalBg').classList.remove('show'); }
+$('#modalBg').addEventListener('click', (e) => { if (e.target === $('#modalBg')) closeModal(); });
 
-/* ---------- Modal forms ---------- */
 function openAddModal() {
   if (currentView === 'habits' || currentView === 'today') openHabitForm();
   else if (currentView === 'goals') openGoalForm();
   else if (currentView === 'journal') openJournalForm();
+  else openHabitForm();
 }
 
 function openHabitForm() {
-  openModal(`
-    <div class="modal-title">Nouvelle habit</div>
-    <form id="habitForm" novalidate>
-      <div class="field">
-        <label for="habitName">Nom</label>
-        <input id="habitName" name="habitName" type="text" placeholder="ex. Boire 2L d'eau" autocomplete="off" />
-      </div>
-      <button type="submit" class="btn-primary">Créer</button>
-      <button type="button" class="btn-ghost" data-action="cancel">Annuler</button>
-    </form>
-  `);
-  const form = $('#habitForm');
-  const input = $('#habitName');
+  openModal(`<div class="modal-title">Nouvelle habit</div><form id="habitForm" novalidate><div class="field"><label for="habitName">Nom</label><input id="habitName" type="text" placeholder="ex. Boire 2L d'eau" autocomplete="off" /></div><button type="submit" class="btn-primary">Créer</button><button type="button" class="btn-ghost" data-action="cancel">Annuler</button></form>`);
+  const form = $('#habitForm'), input = $('#habitName');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = input.value.trim();
-    if (!name) {
-      input.classList.add('invalid');
-      input.focus();
-      setTimeout(() => input.classList.remove('invalid'), 600);
-      return;
-    }
+    if (!name) { input.classList.add('invalid'); input.focus(); setTimeout(() => input.classList.remove('invalid'), 600); return; }
     state.habits.push({ id: uid(), name, history: {}, createdAt: Date.now() });
-    saveState(); closeModal(); render();
-    toast('Habit créée');
+    saveState(); closeModal(); render(); toast('Habit créée');
   });
   form.querySelector('[data-action="cancel"]').addEventListener('click', closeModal);
   setTimeout(() => input.focus(), 100);
 }
 
 function openGoalForm() {
-  openModal(`
-    <div class="modal-title">Nouveau goal</div>
-    <form id="goalForm" novalidate>
-      <div class="field">
-        <label for="goalName">Nom</label>
-        <input id="goalName" name="goalName" type="text" placeholder="ex. Lire 12 livres" autocomplete="off" />
-      </div>
-      <div class="field">
-        <label for="goalTarget">Objectif (nombre)</label>
-        <input id="goalTarget" name="goalTarget" type="number" min="1" value="1" />
-      </div>
-      <div class="field">
-        <label for="goalDeadline">Échéance (optionnel)</label>
-        <input id="goalDeadline" name="goalDeadline" type="date" />
-      </div>
-      <button type="submit" class="btn-primary">Créer</button>
-      <button type="button" class="btn-ghost" data-action="cancel">Annuler</button>
-    </form>
-  `);
-  const form = $('#goalForm');
-  const nameInput = $('#goalName');
+  openModal(`<div class="modal-title">Nouveau goal</div><form id="goalForm" novalidate><div class="field"><label for="goalName">Nom</label><input id="goalName" type="text" placeholder="ex. Lire 12 livres" autocomplete="off" /></div><div class="field"><label for="goalTarget">Objectif (nombre)</label><input id="goalTarget" type="number" min="1" value="1" /></div><div class="field"><label for="goalDeadline">Échéance (optionnel)</label><input id="goalDeadline" type="date" /></div><button type="submit" class="btn-primary">Créer</button><button type="button" class="btn-ghost" data-action="cancel">Annuler</button></form>`);
+  const form = $('#goalForm'), nameInput = $('#goalName');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = nameInput.value.trim();
-    const target = parseInt($('#goalTarget').value) || 1;
-    const deadline = $('#goalDeadline').value || null;
-    if (!name) {
-      nameInput.classList.add('invalid');
-      nameInput.focus();
-      setTimeout(() => nameInput.classList.remove('invalid'), 600);
-      return;
-    }
-    state.goals.push({ id: uid(), name, target, progress: 0, deadline, done: false, createdAt: Date.now() });
-    saveState(); closeModal(); render();
-    toast('Goal créé');
+    if (!name) { nameInput.classList.add('invalid'); nameInput.focus(); setTimeout(() => nameInput.classList.remove('invalid'), 600); return; }
+    state.goals.push({ id: uid(), name, target: parseInt($('#goalTarget').value) || 1, progress: 0, deadline: $('#goalDeadline').value || null, done: false, createdAt: Date.now() });
+    saveState(); closeModal(); render(); toast('Goal créé');
   });
   form.querySelector('[data-action="cancel"]').addEventListener('click', closeModal);
   setTimeout(() => nameInput.focus(), 100);
@@ -1639,58 +1147,25 @@ let selectedMood = null;
 function openJournalForm() {
   selectedMood = null;
   const moods = ['😊','🙂','😐','😕','😢'];
-  openModal(`
-    <div class="modal-title">Nouvelle entrée</div>
-    <form id="journalForm" novalidate>
-      <div class="field">
-        <label>Comment tu te sens ?</label>
-        <div class="mood-picker">
-          ${moods.map(m => `<button type="button" class="mood-option" data-mood="${m}">${m}</button>`).join('')}
-        </div>
-      </div>
-      <div class="field">
-        <label for="journalText">Note</label>
-        <textarea id="journalText" name="journalText" placeholder="Qu'est-ce qui se passe aujourd'hui ?"></textarea>
-      </div>
-      <button type="submit" class="btn-primary">Enregistrer</button>
-      <button type="button" class="btn-ghost" data-action="cancel">Annuler</button>
-    </form>
-  `);
-  const form = $('#journalForm');
-  const textarea = $('#journalText');
+  openModal(`<div class="modal-title">Nouvelle entrée</div><form id="journalForm" novalidate><div class="field"><label>Comment tu te sens ?</label><div class="mood-picker">${moods.map(m => `<button type="button" class="mood-option" data-mood="${m}">${m}</button>`).join('')}</div></div><div class="field"><label for="journalText">Note</label><textarea id="journalText" placeholder="Qu'est-ce qui se passe aujourd'hui ?"></textarea></div><button type="submit" class="btn-primary">Enregistrer</button><button type="button" class="btn-ghost" data-action="cancel">Annuler</button></form>`);
+  const form = $('#journalForm'), textarea = $('#journalText');
   form.querySelectorAll('.mood-option').forEach(opt => {
-    opt.addEventListener('click', () => {
-      form.querySelectorAll('.mood-option').forEach(o => o.classList.remove('selected'));
-      opt.classList.add('selected');
-      selectedMood = opt.dataset.mood;
-    });
+    opt.addEventListener('click', () => { form.querySelectorAll('.mood-option').forEach(o => o.classList.remove('selected')); opt.classList.add('selected'); selectedMood = opt.dataset.mood; });
   });
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const text = textarea.value.trim();
-    if (!text) {
-      textarea.classList.add('invalid');
-      textarea.focus();
-      setTimeout(() => textarea.classList.remove('invalid'), 600);
-      return;
-    }
+    if (!text) { textarea.classList.add('invalid'); textarea.focus(); setTimeout(() => textarea.classList.remove('invalid'), 600); return; }
     state.journal.push({ id: uid(), text, mood: selectedMood, createdAt: Date.now() });
-    saveState(); closeModal(); render();
-    toast('Entrée enregistrée');
+    saveState(); closeModal(); render(); toast('Entrée enregistrée');
   });
   form.querySelector('[data-action="cancel"]').addEventListener('click', closeModal);
 }
 
 /* ---------- Confirms ---------- */
-function confirmDeleteHabit(id) {
-  if (confirm('Supprimer cette habit ?')) deleteHabit(id);
-}
-function confirmDeleteGoal(id) {
-  if (confirm('Supprimer ce goal ?')) deleteGoal(id);
-}
-function confirmDeleteJournal(id) {
-  if (confirm('Supprimer cette entrée ?')) deleteJournal(id);
-}
+function confirmDeleteHabit(id) { if (confirm('Supprimer cette habit ?')) deleteHabit(id); }
+function confirmDeleteGoal(id) { if (confirm('Supprimer ce goal ?')) deleteGoal(id); }
+function confirmDeleteJournal(id) { if (confirm('Supprimer cette entrée ?')) deleteJournal(id); }
 
 /* ---------- Navigation ---------- */
 function updateFabVisibility() {
@@ -1700,7 +1175,7 @@ function updateFabVisibility() {
 document.querySelectorAll('.tab').forEach(btn => {
   btn.addEventListener('click', () => {
     const v = btn.dataset.view;
-    if (v === currentView) return;
+    if (!v || v === currentView) return;
     currentView = v;
     document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === btn));
     document.querySelectorAll('.view').forEach(view => view.classList.toggle('active', view.id === `view-${v}`));
@@ -1712,6 +1187,7 @@ document.querySelectorAll('.tab').forEach(btn => {
 });
 
 $('#fab').addEventListener('click', openAddModal);
+$('#sidebarNew').addEventListener('click', openAddModal);
 
 window.addEventListener('scroll', () => {
   $('#appHeader').classList.toggle('scrolled', window.scrollY > 4);
