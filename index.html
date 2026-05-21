@@ -1092,6 +1092,99 @@
   .today-grid { display: block; }
   .today-grid-goals { margin-top: 0; }
 
+  /* ------------------ Segment control ------------------ */
+  .seg {
+    display: inline-flex;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .seg-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-soft);
+    padding: 6px 12px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+    min-height: 28px;
+  }
+  .seg-btn:hover { color: var(--text-muted); }
+  .seg-btn.active {
+    background: var(--bg);
+    color: var(--text);
+    box-shadow:
+      0 0 0 1px var(--border-strong) inset,
+      0 1px 2px oklch(0 0 0 / 0.3);
+  }
+
+  /* ------------------ Chart (line/area) ------------------ */
+  .constance-pane[hidden] { display: none; }
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+  }
+  .chart-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+  .chart-svg .grid-line { stroke: var(--border); stroke-width: 1; }
+  .chart-svg .grid-line.mid { stroke-dasharray: 2 3; opacity: 0.7; }
+  .chart-svg .axis-label {
+    fill: var(--text-faint);
+    font-family: var(--font-ui);
+    font-size: 8.5px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .chart-svg .line {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 4px oklch(0.84 0.155 75 / 0.4));
+  }
+  .chart-svg .area { fill: url(#chartFill); }
+  .chart-svg .dot-core { fill: var(--accent); }
+  .chart-svg .dot-halo { fill: var(--accent); opacity: 0.18; }
+  .chart-svg .stop-top { stop-color: var(--accent); stop-opacity: 0.32; }
+  .chart-svg .stop-bot { stop-color: var(--accent); stop-opacity: 0; }
+  .chart-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .chart-meta-value {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-feature-settings: 'tnum', 'lnum';
+  }
+  .chart-meta-label {
+    font-size: 10px;
+    color: var(--text-soft);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+
   /* ===================== DESKTOP ===================== */
   @media (min-width: 768px) {
     body {
@@ -1435,23 +1528,35 @@
 
       <div class="section-head">
         <div class="section-title">Constance des habits</div>
-        <div class="section-sub">5 sem.</div>
+        <div class="seg" role="tablist" aria-label="Mode d'affichage">
+          <button type="button" class="seg-btn active" data-stats-view="heatmap" role="tab" aria-selected="true">Grille</button>
+          <button type="button" class="seg-btn" data-stats-view="chart" role="tab" aria-selected="false">Courbe</button>
+        </div>
       </div>
       <div class="heatmap-card">
-        <div class="heatmap-labels">
-          <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
-        </div>
-        <div class="heatmap-grid" id="heatmapGrid"></div>
-        <div class="heatmap-legend">
-          <span>moins</span>
-          <div class="legend-cells">
-            <div class="legend-cell" style="background:var(--hm-0)"></div>
-            <div class="legend-cell" style="background:var(--hm-1)"></div>
-            <div class="legend-cell" style="background:var(--hm-2)"></div>
-            <div class="legend-cell" style="background:var(--hm-3)"></div>
-            <div class="legend-cell" style="background:var(--hm-4)"></div>
+        <div class="constance-pane heatmap-pane" id="paneHeatmap">
+          <div class="heatmap-labels">
+            <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
           </div>
-          <span>plus</span>
+          <div class="heatmap-grid" id="heatmapGrid"></div>
+          <div class="heatmap-legend">
+            <span>moins</span>
+            <div class="legend-cells">
+              <div class="legend-cell" style="background:var(--hm-0)"></div>
+              <div class="legend-cell" style="background:var(--hm-1)"></div>
+              <div class="legend-cell" style="background:var(--hm-2)"></div>
+              <div class="legend-cell" style="background:var(--hm-3)"></div>
+              <div class="legend-cell" style="background:var(--hm-4)"></div>
+            </div>
+            <span>plus</span>
+          </div>
+        </div>
+        <div class="constance-pane chart-pane" id="paneChart" hidden>
+          <div class="chart-wrap" id="chartContainer"></div>
+          <div class="chart-meta">
+            <span class="chart-meta-value" id="chartAvg">0%</span>
+            <span class="chart-meta-label">moyenne · 30 j.</span>
+          </div>
         </div>
       </div>
 
@@ -1812,8 +1917,101 @@ function renderStats() {
     if (c.empty) return `<div class="heatmap-cell empty"></div>`;
     return `<div class="heatmap-cell level-${c.level}${c.isToday ? ' today' : ''}" title="${c.title}"></div>`;
   }).join('');
+  renderChart(avgConsistency);
   $('#habitStatsList').innerHTML = habits.length === 0 ? emptyHtml('Pas encore de données', 'Crée des habits pour voir tes stats', 'habit') : habits.map(habitStatRow).join('');
   $('#goalStatsList').innerHTML = goals.length === 0 ? emptyHtml('Aucun goal', 'Crée des goals pour voir tes progrès', 'goal') : goals.map(goalStatRow).join('');
+}
+
+function buildChartPoints() {
+  const habits = state.habits;
+  const N = 30;
+  const points = [];
+  for (let i = N - 1; i >= 0; i--) {
+    const d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() - i);
+    const k = dateKey(d);
+    let done = 0, total = 0;
+    habits.forEach(h => {
+      const createdAt = h.createdAt || 0;
+      if (new Date(createdAt) <= d || dateKey(new Date(createdAt)) === k) {
+        total++;
+        if (h.history && h.history[k]) done++;
+      }
+    });
+    const ratio = total > 0 ? done / total : 0;
+    points.push({ day: N - 1 - i, ratio, done, total, dateLabel: formatShort(d) });
+  }
+  return points;
+}
+
+function renderChart(avgPct) {
+  const container = $('#chartContainer');
+  if (!container) return;
+  const points = buildChartPoints();
+  const W = 320, H = 150;
+  const padL = 26, padR = 10, padT = 14, padB = 22;
+  const cw = W - padL - padR;
+  const ch = H - padT - padB;
+  const lastIdx = points.length - 1;
+
+  if (state.habits.length === 0) {
+    container.innerHTML = `<div class="empty" style="padding:32px 8px;"><div class="empty-title">Pas encore de données</div><div class="empty-sub">Crée des habits pour voir ta courbe.</div></div>`;
+    $('#chartAvg').textContent = '0%';
+    return;
+  }
+
+  const xOf = (i) => padL + (i / lastIdx) * cw;
+  const yOf = (r) => padT + (1 - r) * ch;
+
+  let line = '';
+  let area = '';
+  points.forEach((p, i) => {
+    const x = xOf(p.day), y = yOf(p.ratio);
+    if (i === 0) {
+      line += `M${x.toFixed(2)} ${y.toFixed(2)}`;
+      area += `M${x.toFixed(2)} ${(padT + ch).toFixed(2)} L${x.toFixed(2)} ${y.toFixed(2)}`;
+    } else {
+      line += ` L${x.toFixed(2)} ${y.toFixed(2)}`;
+      area += ` L${x.toFixed(2)} ${y.toFixed(2)}`;
+    }
+  });
+  area += ` L${xOf(lastIdx).toFixed(2)} ${(padT + ch).toFixed(2)} Z`;
+
+  const guides = [0, 0.5, 1].map(r => {
+    const y = yOf(r).toFixed(2);
+    return `<line class="grid-line${r === 0.5 ? ' mid' : ''}" x1="${padL}" x2="${W - padR}" y1="${y}" y2="${y}"/>`;
+  }).join('');
+
+  const yLabels = [
+    `<text class="axis-label" x="${padL - 6}" y="${(yOf(1) + 3).toFixed(2)}" text-anchor="end">100</text>`,
+    `<text class="axis-label" x="${padL - 6}" y="${(yOf(0.5) + 3).toFixed(2)}" text-anchor="end">50</text>`,
+    `<text class="axis-label" x="${padL - 6}" y="${(yOf(0) + 3).toFixed(2)}" text-anchor="end">0</text>`,
+  ].join('');
+
+  const xLabels = `<text class="axis-label" x="${xOf(0).toFixed(2)}" y="${H - 4}" text-anchor="start">−29 j</text>
+    <text class="axis-label" x="${xOf(lastIdx / 2).toFixed(2)}" y="${H - 4}" text-anchor="middle">−15 j</text>
+    <text class="axis-label" x="${xOf(lastIdx).toFixed(2)}" y="${H - 4}" text-anchor="end">auj.</text>`;
+
+  const last = points[lastIdx];
+  const lx = xOf(last.day), ly = yOf(last.ratio);
+  const dot = `<circle class="dot-halo" cx="${lx.toFixed(2)}" cy="${ly.toFixed(2)}" r="6"/>
+    <circle class="dot-core" cx="${lx.toFixed(2)}" cy="${ly.toFixed(2)}" r="2.5"/>`;
+
+  container.innerHTML = `<svg class="chart-svg" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Courbe de consistance 30 jours">
+    <defs>
+      <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+        <stop class="stop-top" offset="0%"/>
+        <stop class="stop-bot" offset="100%"/>
+      </linearGradient>
+    </defs>
+    ${guides}
+    <path class="area" d="${area}"/>
+    <path class="line" d="${line}"/>
+    ${dot}
+    ${yLabels}
+    ${xLabels}
+  </svg>`;
+
+  $('#chartAvg').textContent = `${avgPct}%`;
 }
 
 function buildHeatmap() {
@@ -1988,6 +2186,36 @@ document.querySelectorAll('.tab').forEach(btn => {
 
 $('#fab').addEventListener('click', openAddModal);
 $('#sidebarNew').addEventListener('click', openAddModal);
+
+/* ---------- Stats view toggle ---------- */
+let statsView = (() => {
+  try { return localStorage.getItem('track-stats-view') || 'heatmap'; }
+  catch (e) { return 'heatmap'; }
+})();
+
+function applyStatsView() {
+  const heatmap = $('#paneHeatmap'), chart = $('#paneChart');
+  if (!heatmap || !chart) return;
+  const isChart = statsView === 'chart';
+  heatmap.hidden = isChart;
+  chart.hidden = !isChart;
+  document.querySelectorAll('.seg-btn[data-stats-view]').forEach(btn => {
+    const active = btn.dataset.statsView === statsView;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+}
+
+document.querySelectorAll('.seg-btn[data-stats-view]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const v = btn.dataset.statsView;
+    if (!v || v === statsView) return;
+    statsView = v;
+    try { localStorage.setItem('track-stats-view', v); } catch (e) {}
+    applyStatsView();
+  });
+});
+applyStatsView();
 
 const mainEl = document.getElementById('main');
 function updateHeaderScroll() {
