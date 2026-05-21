@@ -45,6 +45,82 @@
     background: var(--bg);
     position: relative;
   }
+
+  /* Loading */
+  #loadingScreen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .loading-logo {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 0.9; }
+  }
+
+  /* Auth Screen */
+  #authScreen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .auth-container { width: 100%; max-width: 380px; }
+  .auth-logo {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 4px;
+  }
+  .auth-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 36px;
+  }
+  .auth-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: var(--danger);
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+  .auth-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .auth-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 4px;
+    text-decoration: underline;
+  }
+
   /* Header */
   .app-header {
     padding: 20px 20px 12px;
@@ -61,6 +137,11 @@
     color: var(--text-muted);
     font-weight: 500;
   }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   .header-title {
     font-size: 26px;
     font-weight: 700;
@@ -73,6 +154,18 @@
     margin-top: 4px;
     text-transform: capitalize;
   }
+  .signout-btn {
+    background: none;
+    border: none;
+    color: var(--text-soft);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+  }
+  .signout-btn:hover { background: var(--surface-2); }
 
   /* Main */
   main {
@@ -332,9 +425,7 @@
     color: var(--text-muted);
     font-weight: 500;
   }
-  .journal-mood {
-    font-size: 18px;
-  }
+  .journal-mood { font-size: 18px; }
   .journal-text {
     font-size: 14px;
     line-height: 1.55;
@@ -365,10 +456,7 @@
     color: var(--text);
     margin-bottom: 4px;
   }
-  .empty-sub {
-    font-size: 13px;
-    color: var(--text-soft);
-  }
+  .empty-sub { font-size: 13px; color: var(--text-soft); }
 
   /* FAB */
   .fab {
@@ -467,9 +555,7 @@
     margin-bottom: 16px;
     letter-spacing: -0.01em;
   }
-  .field {
-    margin-bottom: 14px;
-  }
+  .field { margin-bottom: 14px; }
   .field label {
     display: block;
     font-size: 12px;
@@ -555,6 +641,7 @@
     transition: opacity .15s;
   }
   .btn-primary:active { opacity: 0.85; }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
   .btn-ghost {
     width: 100%;
     background: transparent;
@@ -591,10 +678,7 @@
   }
 
   /* Week dots for habits */
-  .week-dots {
-    display: flex;
-    gap: 3px;
-  }
+  .week-dots { display: flex; gap: 3px; }
   .week-dot {
     width: 7px;
     height: 7px;
@@ -654,10 +738,7 @@
     color: var(--text-soft);
     justify-content: flex-end;
   }
-  .legend-cells {
-    display: flex;
-    gap: 3px;
-  }
+  .legend-cells { display: flex; gap: 3px; }
   .legend-cell {
     width: 11px;
     height: 11px;
@@ -688,10 +769,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .stat-row-name.done {
-    text-decoration: line-through;
-    color: var(--text-soft);
-  }
+  .stat-row-name.done { text-decoration: line-through; color: var(--text-soft); }
   .pct-badge {
     font-size: 12px;
     font-weight: 600;
@@ -726,9 +804,43 @@
 </head>
 <body>
 
+<!-- Loading -->
+<div id="loadingScreen">
+  <div class="loading-logo">Track</div>
+</div>
+
+<!-- Auth Screen -->
+<div id="authScreen" style="display:none;">
+  <div class="auth-container">
+    <div class="auth-logo">Track</div>
+    <div class="auth-subtitle">Goals, Habits & Journal</div>
+    <div id="authError" class="auth-error" style="display:none;"></div>
+    <form id="authForm" novalidate>
+      <div class="field">
+        <label for="authEmail">Email</label>
+        <input id="authEmail" type="email" placeholder="ton@email.com" autocomplete="email" />
+      </div>
+      <div class="field">
+        <label for="authPassword">Mot de passe</label>
+        <input id="authPassword" type="password" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn-primary" id="authSubmit">Se connecter</button>
+    </form>
+    <div class="auth-toggle">
+      <span id="authToggleText">Pas encore de compte ?</span>
+      <button type="button" id="authToggleBtn" class="auth-toggle-btn">S'inscrire</button>
+    </div>
+  </div>
+</div>
+
 <header class="app-header" id="appHeader">
   <div class="greeting" id="greeting">Bonjour</div>
-  <div class="header-title" id="viewTitle">Aujourd'hui</div>
+  <div class="header-row">
+    <div class="header-title" id="viewTitle">Aujourd'hui</div>
+    <button class="signout-btn" id="signOutBtn" title="Se déconnecter">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    </button>
+  </div>
   <div class="date-line" id="dateLine"></div>
 </header>
 
@@ -867,21 +979,138 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
 <script>
+/* ---------- Firebase ---------- */
+firebase.initializeApp({
+  apiKey: "AIzaSyApj9zwRcbzl3yY3AgXFkxNs-9am6v77vY",
+  authDomain: "track-saas-c971a.firebaseapp.com",
+  projectId: "track-saas-c971a",
+  storageBucket: "track-saas-c971a.firebasestorage.app",
+  messagingSenderId: "886452834223",
+  appId: "1:886452834223:web:460b1cc546232c5094695a"
+});
+const auth = firebase.auth();
+const db = firebase.firestore();
+let currentUser = null;
+
 /* ---------- State ---------- */
 const STORAGE_KEY = 'track-saas-v1';
-const state = loadState();
+let state = { habits: [], goals: [], journal: [] };
 
-function loadState() {
+function loadStateFromLocal() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) return JSON.parse(raw);
   } catch (e) {}
   return { habits: [], goals: [], journal: [] };
 }
+
+let saveTimeout = null;
 function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  if (!currentUser) return;
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(async () => {
+    try {
+      await db.collection('users').doc(currentUser.uid).set({
+        habits: state.habits,
+        goals: state.goals,
+        journal: state.journal
+      });
+    } catch (e) {
+      console.error('Firestore save error:', e);
+    }
+  }, 800);
 }
+
+/* ---------- Auth state ---------- */
+auth.onAuthStateChanged(async (user) => {
+  document.getElementById('loadingScreen').style.display = 'none';
+  currentUser = user;
+  if (user) {
+    try {
+      const doc = await db.collection('users').doc(user.uid).get();
+      if (doc.exists) {
+        const data = doc.data();
+        state = {
+          habits: data.habits || [],
+          goals: data.goals || [],
+          journal: data.journal || []
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } else {
+        state = { habits: [], goals: [], journal: [] };
+      }
+    } catch (e) {
+      state = loadStateFromLocal();
+    }
+    document.getElementById('authScreen').style.display = 'none';
+    render();
+  } else {
+    state = { habits: [], goals: [], journal: [] };
+    document.getElementById('authScreen').style.display = 'flex';
+  }
+});
+
+/* ---------- Auth form ---------- */
+let isSignUp = false;
+
+document.getElementById('authToggleBtn').addEventListener('click', () => {
+  isSignUp = !isSignUp;
+  document.getElementById('authSubmit').textContent = isSignUp ? "S'inscrire" : 'Se connecter';
+  document.getElementById('authToggleText').textContent = isSignUp ? 'Déjà un compte ?' : 'Pas encore de compte ?';
+  document.getElementById('authToggleBtn').textContent = isSignUp ? 'Se connecter' : "S'inscrire";
+  document.getElementById('authPassword').autocomplete = isSignUp ? 'new-password' : 'current-password';
+  document.getElementById('authError').style.display = 'none';
+});
+
+document.getElementById('authForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
+  const submitBtn = document.getElementById('authSubmit');
+  const errorDiv = document.getElementById('authError');
+  errorDiv.style.display = 'none';
+  submitBtn.disabled = true;
+  submitBtn.textContent = '…';
+  try {
+    if (isSignUp) {
+      await auth.createUserWithEmailAndPassword(email, password);
+    } else {
+      await auth.signInWithEmailAndPassword(email, password);
+    }
+  } catch (err) {
+    submitBtn.disabled = false;
+    submitBtn.textContent = isSignUp ? "S'inscrire" : 'Se connecter';
+    errorDiv.textContent = getAuthError(err.code);
+    errorDiv.style.display = 'block';
+  }
+});
+
+function getAuthError(code) {
+  const errors = {
+    'auth/invalid-email': 'Email invalide.',
+    'auth/user-not-found': 'Aucun compte avec cet email.',
+    'auth/wrong-password': 'Mot de passe incorrect.',
+    'auth/email-already-in-use': 'Cet email est déjà utilisé.',
+    'auth/weak-password': 'Mot de passe trop faible (6 caractères min).',
+    'auth/too-many-requests': 'Trop de tentatives. Réessaie plus tard.',
+    'auth/invalid-credential': 'Email ou mot de passe incorrect.',
+  };
+  return errors[code] || 'Une erreur est survenue.';
+}
+
+document.getElementById('signOutBtn').addEventListener('click', () => {
+  if (confirm('Se déconnecter ?')) {
+    auth.signOut();
+    localStorage.removeItem(STORAGE_KEY);
+  }
+});
 
 /* ---------- Utils ---------- */
 const $ = (s) => document.querySelector(s);
@@ -952,7 +1181,6 @@ function habitStreak(h) {
       streak++;
       d.setDate(d.getDate() - 1);
     } else {
-      // allow today to be missing without breaking
       if (streak === 0 && dateKey(d) === todayKey()) {
         d.setDate(d.getDate() - 1);
         continue;
@@ -1095,7 +1323,6 @@ function renderStats() {
   const habits = state.habits;
   const goals = state.goals;
 
-  // Average consistency over last 30 days (only count days where habits existed)
   let doneCount = 0;
   let totalSlots = 0;
   for (let i = 0; i < 30; i++) {
@@ -1118,18 +1345,15 @@ function renderStats() {
   $('#statLongestStreak').textContent = longestStreak;
   $('#statGoalsCompleted').textContent = goalsCompleted;
 
-  // Heatmap
   $('#heatmapGrid').innerHTML = buildHeatmap().map(c => {
     if (c.empty) return `<div class="heatmap-cell empty"></div>`;
     return `<div class="heatmap-cell level-${c.level}${c.isToday ? ' today' : ''}" title="${c.title}"></div>`;
   }).join('');
 
-  // Habits detail
   $('#habitStatsList').innerHTML = habits.length === 0
     ? emptyHtml('Pas encore de données', 'Crée des habits pour voir tes stats', 'habit')
     : habits.map(habitStatRow).join('');
 
-  // Goals detail
   $('#goalStatsList').innerHTML = goals.length === 0
     ? emptyHtml('Aucun goal', 'Crée des goals pour voir tes progrès', 'goal')
     : goals.map(goalStatRow).join('');
@@ -1137,7 +1361,7 @@ function renderStats() {
 
 function buildHeatmap() {
   const today = new Date(); today.setHours(0,0,0,0);
-  const dayOfWeek = (today.getDay() + 6) % 7; // 0 = Monday
+  const dayOfWeek = (today.getDay() + 6) % 7;
   const startDate = new Date(today);
   startDate.setDate(today.getDate() - dayOfWeek - 28);
 
@@ -1489,7 +1713,6 @@ document.querySelectorAll('.tab').forEach(btn => {
 
 $('#fab').addEventListener('click', openAddModal);
 
-/* ---------- Scroll header ---------- */
 window.addEventListener('scroll', () => {
   $('#appHeader').classList.toggle('scrolled', window.scrollY > 4);
 }, { passive: true });
@@ -1501,9 +1724,6 @@ window.updateGoalProgress = updateGoalProgress;
 window.toggleGoalDone = toggleGoalDone;
 window.confirmDeleteGoal = confirmDeleteGoal;
 window.confirmDeleteJournal = confirmDeleteJournal;
-
-/* ---------- Init ---------- */
-render();
 </script>
 
 </body>
